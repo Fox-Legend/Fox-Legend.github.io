@@ -1,0 +1,769 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一、Volley的使用1.1 Volley简介Volley是Google I/O 2013发布的一款基于Android平台的网络框架,它的优点有：1) 默认Android2.3及以上基于 HttpURLConnection,2.3以下基于HttpClient;2) 提供了两种缓存机制：磁盘缓存和内存缓存,符合Http缓存语义的缓存机制;3) 支持指定请求的优先级;4) 提供多样的取消机制：特定任务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Volley的使用以及源码分析（一）">
+<meta property="og:url" content="http://yoursite.com/2016/06/19/Volley/index.html">
+<meta property="og:site_name" content="Fox-Legend">
+<meta property="og:description" content="一、Volley的使用1.1 Volley简介Volley是Google I/O 2013发布的一款基于Android平台的网络框架,它的优点有：1) 默认Android2.3及以上基于 HttpURLConnection,2.3以下基于HttpClient;2) 提供了两种缓存机制：磁盘缓存和内存缓存,符合Http缓存语义的缓存机制;3) 支持指定请求的优先级;4) 提供多样的取消机制：特定任务">
+<meta property="og:image" content="http://yoursite.com/velloy.png">
+<meta property="og:updated_time" content="2016-06-29T08:14:07.614Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Volley的使用以及源码分析（一）">
+<meta name="twitter:description" content="一、Volley的使用1.1 Volley简介Volley是Google I/O 2013发布的一款基于Android平台的网络框架,它的优点有：1) 默认Android2.3及以上基于 HttpURLConnection,2.3以下基于HttpClient;2) 提供了两种缓存机制：磁盘缓存和内存缓存,符合Http缓存语义的缓存机制;3) 支持指定请求的优先级;4) 提供多样的取消机制：特定任务">
+<meta name="twitter:image" content="http://yoursite.com/velloy.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/06/19/Volley/"/>
+
+  <title> Volley的使用以及源码分析（一） | Fox-Legend </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Fox-Legend</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">To stand in the spotlight of life, one must have experience in the shadows of setbacks.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Volley的使用以及源码分析（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-19T16:12:38+08:00" content="2016-06-19">
+              2016-06-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/19/Volley/" class="leancloud_visitors" data-flag-title="Volley的使用以及源码分析（一）">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、Volley的使用"><a href="#一、Volley的使用" class="headerlink" title="一、Volley的使用"></a>一、Volley的使用</h3><h4 id="1-1-Volley简介"><a href="#1-1-Volley简介" class="headerlink" title="1.1 Volley简介"></a>1.1 Volley简介</h4><p>Volley是Google I/O 2013发布的一款基于Android平台的网络框架,它的优点有：<br>1) 默认Android2.3及以上基于 HttpURLConnection,2.3以下基于HttpClient;<br>2) 提供了两种缓存机制：磁盘缓存和内存缓存,符合Http缓存语义的缓存机制;<br>3) 支持指定请求的优先级;<br>4) 提供多样的取消机制：特定任务取消以及多任务取消;<br>5) 提供简便的图片加载工具（ImageRequest、ImageLoader）;<br>6) 一个优秀的框架.<br><a id="more"></a><br>不足之处：它只适应数据量小,通信频繁的网络操作,如果数据量大如音频、视频等传输,就不要使用Volley为好.下图是官方给出的Velloy网络框架示意图,就表明该框架适合数据量不大但很频繁的场景.<br><img src="velloy.png" alt="Volley"></p>
+<h4 id="1-2-获取Volley"><a href="#1-2-获取Volley" class="headerlink" title="1.2 获取Volley"></a>1.2 获取Volley</h4><p>1) 可以直接从google上git clone下来:<br>git clone <a href="https://android.googlesource.com/platform/frameworks/volley" target="_blank" rel="external">https://android.googlesource.com/platform/frameworks/volley</a><br>然后使用命令：android update project -p . ant jar生成一个Volley.jar包,直接添加到工程中就可以使用了.</p>
+<p>2) 或者从github上下载源码<br><a href="https://github.com/Fox-Legend/android-volley" target="_blank" rel="external">https://github.com/Fox-Legend/android-volley</a></p>
+<h4 id="1-3-使用Volley"><a href="#1-3-使用Volley" class="headerlink" title="1.3 使用Volley"></a>1.3 使用Volley</h4><p>Volley中构建了很多工具网络请求工具类,如StringRequest、JsonArrayRequest、JsonObjectRequest、ImageRequest等,这些都是常用的网络请求.<br>Volley提供了一个请求队列RequestQueue专门用于存放用户的网络请求,所有的request申请后都添加到这个队列中缓存,然后按照一定的算法并发地发出这些请求,<br>一般网络请求队列在整个APP内使用是一个全局对象,所以最好写到Application中,<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public <span class="class"><span class="keyword">class</span> <span class="title">AppApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</div><div class="line">  <span class="comment">/**</span></div><div class="line">   * 建立请求队列</div><div class="line">   */</div><div class="line">  <span class="keyword">private</span> static <span class="type">RequestQueue</span> mQueue;</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  public void onCreate() &#123;</div><div class="line">      <span class="keyword">super</span>.onCreate();</div><div class="line">      <span class="keyword">this</span>.mQueue = <span class="type">Volley</span>.newRequestQueue(getApplicationContext());</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  public static <span class="type">RequestQueue</span> getRequestQueue()&#123;</div><div class="line">      <span class="keyword">return</span> mQueue;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在创建RequestQueue队列对象的构造函数中,已经调用了RequestQueue的start方法.<br>对应的需要修改AndroidManifest.xml文件,是的App对应的Application对象为AppApplication.<br>不要忘记添加访问网络的权限：<uses-permission android:name="android.permission.INTERNET"><br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">application</span></div><div class="line">        android:<span class="built_in">name</span>=<span class="string">".AppApplication"</span></div><div class="line">        android:allowBackup=<span class="string">"true"</span></div><div class="line">        android:icon=<span class="string">"@mipmap/ic_launcher"</span></div><div class="line">        android:label=<span class="string">"@string/app_name"</span></div><div class="line">        android:supportsRtl=<span class="string">"true"</span></div><div class="line">        android:theme=<span class="string">"@style/AppTheme"</span>&gt;</div><div class="line">        &lt;activity android:<span class="built_in">name</span>=<span class="string">".MainActivity"</span>&gt;</div></pre></td></tr></table></figure></uses-permission></p>
+<p>(1) 建立一个JsonArrayRequest发送Http请求,并添加到RequestQueue中,返回Json数据:<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MainActivity"</span>;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String mUrl = <span class="string">"http://10.8.204.173:5000/shouye/newdata/1"</span>;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        VolleyGet();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 网络请求方式为Get，返回Json</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">void</span> <span class="title">VolleyGet</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 建立JsonArrayRequest请求</div><div class="line">         */</div><div class="line">        JsonArrayRequest request = <span class="keyword">new</span> JsonArrayRequest(Request.Method.GET,mUrl,<span class="keyword">null</span>, <span class="keyword">new</span> Response.Listener&lt;JSONArray&gt;() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(JSONArray response)</span> </span>&#123;</div><div class="line">                Toast.makeText(MainActivity.<span class="keyword">this</span>,<span class="string">"the response:"</span> + response.toString(),Toast.LENGTH_SHORT).show();</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="keyword">new</span> Response.ErrorListener() &#123;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onErrorResponse</span><span class="params">(VolleyError <span class="keyword">error</span>)</span> </span>&#123;</div><div class="line">                Log.e(TAG,<span class="keyword">error</span>.toString());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 为request设置请求标签</div><div class="line">         */</div><div class="line">        request.setTag(<span class="string">"JSONArrayRequest_GET"</span>);</div><div class="line">        AppApplication.getRequestQueue().add(request);</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>返回Json数据：<br>the response:<br>[{“star”:”53”,”date”:”06-18”,”title”:”美发图片长发卷发”,”urls”:[“http:\/\/t1.du114.com\/uploads\/tu\/201606\/changfa250\/2008111233241866_2.jpg”]}]<br>大家都知道Http的请求类型通常有两种,GET和POST,上面只是使用GET方式,若想要发送POST请求,只需要修改method==Request.Method.POST即可,再加添post请求内容params.<br>JsonArrayRequest其对应的构造函数参数列表为：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 默认的请求方法是GET</span></div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">JsonArrayRequest</span><span class="params">(String url, Listener&lt;JSONArray&gt; listener, ErrorListener errorListener)</span> </span>&#123;</div><div class="line">     ...<span class="comment">// 省略代码</span></div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * Creates a new request.</div><div class="line"> * <span class="doctag">@param</span> method the HTTP method to use：网络请求的方法,如GET和POST等</div><div class="line"> * <span class="doctag">@param</span> url URL to fetch the JSON from：网络请求的地址</div><div class="line"> * <span class="doctag">@param</span> jsonRequest A &#123;<span class="doctag">@link</span> JSONArray&#125; to post with the request. Null is allowed and</div><div class="line"> *   indicates no parameters will be posted along with request</div><div class="line"> * <span class="doctag">@param</span> listener Listener to receive the JSON response：请求返回结果监听</div><div class="line"> * <span class="doctag">@param</span> errorListener Error listener, or null to ignore errors.：请求失败监听</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">JsonArrayRequest</span><span class="params">(<span class="keyword">int</span> method, String url, JSONArray jsonRequest,</span></span></div><div class="line">                        Listener&lt;JSONArray&gt; listener, ErrorListener errorListener) &#123;</div><div class="line">    ...<span class="comment">// 省略代码</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>总结上述过程总共就三步：<br>a、创建一个RequestQueue对象;<br>b、创建一个JsonArrayRequest对象;<br>c、将JsonArrayRequest对象添加到RequestQueue中.</p>
+<p>在Volley中还提供了其它的Request,比如StringRequest/JsonObjectRequest等,而且还可以自定义Request.使用方法基本和上述一样.</p>
+<p>(2) 除了一些基本字符数据的网络请求,Volley还可以加载图片数据,有两种请求方式：ImageLoader和ImageRequest<br><strong>ImageRequest</strong><br>ImageRequest和之前的request用法差不多,都是在创建对象后添加到RequestQueue中.<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 利用ImageRequest加载图片</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">void</span> <span class="title">VolleyImageRequest</span><span class="params">(<span class="keyword">final</span> ImageView imageView)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> maxHeight = <span class="number">480</span>;</div><div class="line">    <span class="keyword">int</span> maxWidth = <span class="number">640</span>;</div><div class="line">    String mPicUrl = <span class="string">"http://t1.du114.com/uploads/tu/201510/fengjing/rgj5thjkwlf.jpg"</span>;</div><div class="line">    ImageRequest imgRequest = <span class="keyword">new</span> ImageRequest(mPicUrl, <span class="keyword">new</span> Response.Listener&lt;Bitmap&gt;() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Bitmap response)</span> </span>&#123;</div><div class="line">            imageView.setImageBitmap(response);</div><div class="line">        &#125;</div><div class="line">    &#125;, maxWidth, maxHeight,ImageView.ScaleType.CENTER, Bitmap.Config.RGB_565,</div><div class="line">            <span class="keyword">new</span> Response.ErrorListener() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onErrorResponse</span><span class="params">(VolleyError <span class="keyword">error</span>)</span> </span>&#123;</div><div class="line">            Log.e(TAG,<span class="keyword">error</span>.toString());</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    imgRequest.setTag(<span class="string">"ImageRequest_TAG"</span>);</div><div class="line">    AppApplication.getRequestQueue().add(imgRequest);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，ImageRequest的构造函数能接收七个参数(原有的六个参数的方法最后也是调用该方法),第一个参数就是图片的URL地址。第二个参数是图片请求成功的回调, 这里我们可以把返回的Bitmap参数设置到ImageView中,第三第四个参数分别用于指定允许图片最大的宽度和高度,如果指定的网络图片的宽度或高度大于这里的最大值,则会对图片进行压缩，指定成0的话就表示不管图片有多大,都不会进行压缩.  第五个参数用于指定图片填充空间的缩放方式ScaleType,第六个参数用于指定图片的颜色属性,Bitmap.Config下的几个常量都可以在这里使用，其中ARGB_8888可以展示最好的颜色属性，每个图片像素占据4个字节的大小，而 RGB_565则表示每个图片像素占据2个字节大小。第七个参数是图片请求失败的回调，这里我们可以在请求失败时在ImageView中显示一张默认图片。<br><strong>ImageLoader</strong><br>ImageLoader也可以用于加载网络图片,并且内部也是使用ImageRequest来实现的,不过ImageLoader比ImageRequest要高效,因为它不仅可以对图片进行缓存而且还可以过滤重复的链接,避免重复发送请求.<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 利用ImageLoader加载图片</div><div class="line"> * <span class="doctag">@param</span> mImgView</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">void</span> <span class="title">VolletImageLoader</span><span class="params">(<span class="keyword">final</span> ImageView mImgView)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> maxHeight = <span class="number">480</span>;</div><div class="line">    <span class="keyword">int</span> maxWidth = <span class="number">640</span>;</div><div class="line">    String mPicUrl = <span class="string">"http://t1.du114.com/uploads/tu/201510/fengjing/rgj5thjkwlf.jpg"</span>;</div><div class="line">    ImageLoader imgLoader = <span class="keyword">new</span> ImageLoader(AppApplication.getRequestQueue(),<span class="keyword">new</span> BitmapCache());</div><div class="line">    ImageLoader.ImageListener listener =</div><div class="line">            ImageLoader.getImageListener(mImgView,android.R.drawable.ic_menu_rotate,android.R.drawable.ic_delete);</div><div class="line">    imgLoader.get(mPicUrl,listener,maxWidth,maxHeight);</div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line">  * BitmapCache</div><div class="line">  */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BitmapCache</span> <span class="keyword">implements</span> <span class="title">ImageLoader</span>.<span class="title">ImageCache</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> LruCache&lt;String,Bitmap&gt; mCache;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">BitmapCache</span><span class="params">()</span></span>&#123;</div><div class="line">      <span class="keyword">int</span> maxSize = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">      mCache = <span class="keyword">new</span> LruCache&lt;String,Bitmap&gt;(maxSize)&#123;</div><div class="line">          <span class="meta">@Override</span></div><div class="line">          <span class="keyword">protected</span> <span class="function"><span class="keyword">int</span> <span class="title">sizeOf</span><span class="params">(String key, Bitmap value)</span> </span>&#123;</div><div class="line">              <span class="keyword">return</span> value.getRowBytes() * value.getHeight();</div><div class="line">          &#125;</div><div class="line">      &#125;;</div><div class="line">  &#125;</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="keyword">public</span> <span class="function">Bitmap <span class="title">getBitmap</span><span class="params">(String url)</span> </span>&#123;</div><div class="line">      <span class="function"><span class="keyword">return</span> mCache.<span class="title">get</span><span class="params">(url)</span></span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">putBitmap</span><span class="params">(String url, Bitmap bitmap)</span> </span>&#123;</div><div class="line">      mCache.put(url,bitmap);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，ImageLoader的构造函数接收两个参数，第一个参数就是RequestQueue对象，第二个参数是一个ImageCache对象，我们通过调用ImageLoader的getImageListener()方法能够获取到一个ImageListener对象，getImageListener()方法接收三个参数，第一个参数指定用于显示图片的ImageView控件，第二个参数指定加载图片的过程中显示的图片，第三个参数指定加载图片失败的情况下显示的图片。最后，调用ImageLoader的get()方法来加载图片。</p>
+<p>Volley还特别为加载网络图片提供了NetworkImageView控件(其继承至ImageView),它将上述单独为ImageView设置加载时图片和加载失败的图片等功能封装在一起,更方便.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">VolleyImageLoader</span><span class="params">(NetworkImageView mNetworkView)</span> </span>&#123;</div><div class="line">       String mPicUrl = <span class="string">"http://t1.du114.com/uploads/tu/201510/fengjing/rgj5thjkwlf.jpg"</span>;</div><div class="line">       ImageLoader imgLoader = <span class="keyword">new</span> ImageLoader(AppApplication.getRequestQueue(),<span class="keyword">new</span> BitmapCache());</div><div class="line">       <span class="keyword">this</span>.mNetworkView.setDefaultImageResId(android.R.drawable.ic_menu_rotate);</div><div class="line">       <span class="keyword">this</span>.mNetworkView.setErrorImageResId(android.R.drawable.ic_delete);</div><div class="line">       <span class="keyword">this</span>.mNetworkView.setImageUrl(mPicUrl,imgLoader);</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="1-4-自定义Request"><a href="#1-4-自定义Request" class="headerlink" title="1.4 自定义Request"></a>1.4 自定义Request</h4><p>Volley允许用户按照自己的意愿定义特定的Request,那么怎么样去定义了？ 在Volley中的所有Request都是继承至抽象类Request:<br>如StringRequest:<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * A canned request for retrieving the response body at a given URL as a String.</div><div class="line"> */</div><div class="line">public <span class="class"><span class="keyword">class</span> <span class="title">StringRequest</span> <span class="keyword">extends</span> <span class="title">Request&lt;String&gt;</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="type">Listener</span>&lt;<span class="type">String</span>&gt; mListener;</div><div class="line">    public <span class="type">StringRequest</span>(int method, <span class="type">String</span> url, <span class="type">Listener</span>&lt;<span class="type">String</span>&gt; listener,</div><div class="line">            <span class="type">ErrorListener</span> errorListener) &#123;</div><div class="line">        <span class="keyword">super</span>(method, url, errorListener);</div><div class="line">        mListener = listener;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> void onFinish() &#123;</div><div class="line">        <span class="keyword">super</span>.onFinish();</div><div class="line">        mListener = <span class="literal">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> void deliverResponse(<span class="type">String</span> response) &#123;</div><div class="line">        <span class="keyword">if</span> (mListener != <span class="literal">null</span>) &#123;</div><div class="line">            mListener.onResponse(response);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">    * 解析网络请求返回数据</div><div class="line">    */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">protected</span> <span class="type">Response</span>&lt;<span class="type">String</span>&gt; parseNetworkResponse(<span class="type">NetworkResponse</span> response) &#123;</div><div class="line">        <span class="type">String</span> parsed;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            parsed = <span class="keyword">new</span> <span class="type">String</span>(response.data, <span class="type">HttpHeaderParser</span>.parseCharset(response.headers));</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="type">UnsupportedEncodingException</span> e) &#123;</div><div class="line">            parsed = <span class="keyword">new</span> <span class="type">String</span>(response.data);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="type">Response</span>.success(parsed, <span class="type">HttpHeaderParser</span>.parseCacheHeaders(response));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>若我们想要自定义一个XML文件的XmlRequest,利用XmlPullParserFactory和XmlPullParser去将返回的xml数据进行解析：<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * XmlRequest</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> XmlRequest extends <span class="built_in">Request</span>&lt;XmlPullParser&gt; &#123;</div><div class="line">    <span class="keyword">private</span> final <span class="built_in">Response</span>.Listener&lt;XmlPullParser&gt; mListener;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> XmlRequest(<span class="built_in">int</span> method, <span class="built_in">String</span> url, <span class="built_in">Response</span>.Listener&lt;XmlPullParser&gt; listener,</div><div class="line">                      <span class="built_in">Response</span>.ErrorListener errorListener) &#123;</div><div class="line">        super(method, url, errorListener);</div><div class="line">        mListener = listener;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> XmlRequest(<span class="built_in">String</span> url, <span class="built_in">Response</span>.Listener&lt;XmlPullParser&gt; listener, <span class="built_in">Response</span>.ErrorListener errorListener) &#123;</div><div class="line">        this(Method.<span class="keyword">GET</span>, url, listener, errorListener);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected <span class="built_in">Response</span>&lt;XmlPullParser&gt; parseNetworkResponse(NetworkResponse <span class="built_in">response</span>) &#123;</div><div class="line">        try &#123;</div><div class="line">            <span class="built_in">String</span> xmlString = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="built_in">response</span>.data,</div><div class="line">                    HttpHeaderParser.parseCharset(<span class="built_in">response</span>.headers));</div><div class="line">            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();</div><div class="line">            XmlPullParser xmlPullParser = factory.newPullParser();</div><div class="line">            xmlPullParser.setInput(<span class="keyword">new</span> StringReader(xmlString));</div><div class="line">            return <span class="built_in">Response</span>.success(xmlPullParser, HttpHeaderParser.parseCacheHeaders(<span class="built_in">response</span>));</div><div class="line">        &#125; catch (UnsupportedEncodingException e) &#123;</div><div class="line">            return <span class="built_in">Response</span>.<span class="keyword">error</span>(<span class="keyword">new</span> ParseError(e));</div><div class="line">        &#125; catch (XmlPullParserException e) &#123;</div><div class="line">            return <span class="built_in">Response</span>.<span class="keyword">error</span>(<span class="keyword">new</span> ParseError(e));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void deliverResponse(XmlPullParser <span class="built_in">response</span>) &#123;</div><div class="line">        mListener.onResponse(<span class="built_in">response</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>XmlRequest的使用方法和Volley自带的Request差不多.</p>
+<h4 id="1-4-取消请求Request"><a href="#1-4-取消请求Request" class="headerlink" title="1.4 取消请求Request"></a>1.4 取消请求Request</h4><p>当Activity销毁时,我们可能需要取消一些请求,这时候可以根据在创建Request时,为Request添加的Tag来取消对应的请求,在onDestroy()方法中填写如下代码：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * 为request设置请求标签</div><div class="line">  */</div><div class="line"> request<span class="selector-class">.setTag</span>(<span class="string">"JSONArrayRequest_GET"</span>);</div><div class="line"> <span class="variable">@Override</span></div><div class="line"> protected void onDestroy() &#123;</div><div class="line">     super<span class="selector-class">.onDestroy</span>();</div><div class="line">     AppApplication<span class="selector-class">.getRequestQueue</span>()<span class="selector-class">.cancelAll</span>(<span class="string">"JSONArrayRequest_GET"</span>);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>或者若需要取消属于Activity中全部的请求,那么可以为所有属于该Activity的Request添加同样的Tag.<br>RequestQueue#cancelAll还有另一种重载形式,可以传入RequestFilter,自己指定一个过滤策略.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/17/设计模式之六大原则/" rel="next" title="设计模式之六大原则">
+                <i class="fa fa-chevron-left"></i> 设计模式之六大原则
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/20/Volley-1/" rel="prev" title="Volley的使用以及源码分析（二）">
+                Volley的使用以及源码分析（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Fox-Legend" />
+          <p class="site-author-name" itemprop="name">Fox-Legend</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Fox-Legend" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/QJlinghu" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yosef-gao.github.io/index.html" title="yosef-gao" target="_blank">yosef-gao</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、Volley的使用"><span class="nav-number">1.</span> <span class="nav-text">一、Volley的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Volley简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Volley简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-获取Volley"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 获取Volley</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-使用Volley"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 使用Volley</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-自定义Request"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 自定义Request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-取消请求Request"><span class="nav-number">1.5.</span> <span class="nav-text">1.4 取消请求Request</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fox-Legend</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1bB4GpXl0cIhG0yvn0c41SIi-gzGzoHsz", "8MpzaQJDbI6URX2jlon3fdUq");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

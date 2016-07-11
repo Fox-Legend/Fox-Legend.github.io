@@ -1,0 +1,793 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="本文主要通过源码分析Android中实现消息通信机制之一的Handler，了解其中实现原理和实现过程。Android中的异步加载有2种方式：（1）Handler+Message+Looper实现异步加载，更新UI；（2）利用AsyncTask异步加载类（抽象类）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Looper-Handler-Message">
+<meta property="og:url" content="http://yoursite.com/2016/05/12/Looper-Handler-Message/index.html">
+<meta property="og:site_name" content="Fox-Legend">
+<meta property="og:description" content="本文主要通过源码分析Android中实现消息通信机制之一的Handler，了解其中实现原理和实现过程。Android中的异步加载有2种方式：（1）Handler+Message+Looper实现异步加载，更新UI；（2）利用AsyncTask异步加载类（抽象类）。">
+<meta property="og:image" content="http://img.blog.csdn.net/20160111231936157">
+<meta property="og:updated_time" content="2016-06-29T08:15:12.516Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Looper-Handler-Message">
+<meta name="twitter:description" content="本文主要通过源码分析Android中实现消息通信机制之一的Handler，了解其中实现原理和实现过程。Android中的异步加载有2种方式：（1）Handler+Message+Looper实现异步加载，更新UI；（2）利用AsyncTask异步加载类（抽象类）。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160111231936157">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/05/12/Looper-Handler-Message/"/>
+
+  <title> Looper-Handler-Message | Fox-Legend </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Fox-Legend</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">To stand in the spotlight of life, one must have experience in the shadows of setbacks.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Looper-Handler-Message
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-12T15:14:02+08:00" content="2016-05-12">
+              2016-05-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/12/Looper-Handler-Message/" class="leancloud_visitors" data-flag-title="Looper-Handler-Message">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要通过源码分析Android中实现消息通信机制之一的Handler，了解其中实现原理和实现过程。<br>Android中的异步加载有2种方式：（1）Handler+Message+Looper实现异步加载，更新UI；（2）利用AsyncTask异步加载类（抽象类）。</p>
+<a id="more"></a>
+<h3 id="一、-Handler-Message-Looper基础"><a href="#一、-Handler-Message-Looper基础" class="headerlink" title="一、 Handler+Message+Looper基础"></a>一、 Handler+Message+Looper基础</h3><p><img src="http://img.blog.csdn.net/20160111231936157" alt=""><br>Handler+Meaasge+Looper是android中的一种消息处理机制。因为android在子线程中是不能更新UI的，所以需要通过消息传递通知更新UI。<br>（1）Handler：处理消息(只处理由自己发出的消息)和发送消息，将子线程中需要传递的消息数据，通过Message封装，再用Handler将消息加入消息队列MessageQueue（一个线程可以有多个Handler）；<br>（2）Looper：Looper就是一个循环工作的线程，负责创建一个MessageQueue，然后进入一个无线循环体不断的从该MessageQueue中读取消息。（一个线程实例中只能有一个Looper（它是一个ThreadLocal），一个Looper实例也只有一个MessageQueue）。<br>三者之间的关系：<br>（1）Looper中有一个Message队列，里面存储的是一个个待处理的Message.<br>（2）Message中有一个Handler，这个Handler是用来处理Message的。</p>
+<h4 id="1-Looper：线程循环工作"><a href="#1-Looper：线程循环工作" class="headerlink" title="1.    Looper：线程循环工作"></a>1.    Looper：线程循环工作</h4><p>若要将一个线程创建为Looper线程，只需要在作如下修改，在线程的run方法中添加Looper.prepare()方法和Looper.loop()方法。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public <span class="class"><span class="keyword">class</span> <span class="title">LooperThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    public void run() &#123;</div><div class="line">        <span class="comment">// 将当前线程初始化为Looper线程</span></div><div class="line">        <span class="type">Looper</span>.prepare();</div><div class="line"></div><div class="line">        <span class="comment">// ...其他处理，如实例化handler</span></div><div class="line"></div><div class="line">        <span class="comment">// 开始循环处理消息队列</span></div><div class="line">        <span class="type">Looper</span>.loop();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而Android的UI线程在Activity启动时就已经调用了Looper.prepare()和Looper.loop()方法，所以一般我们都是直接创建Handler实例就可以进行消息的传递。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    public void handleMessage(<span class="type">Message</span> msg) &#123;</div><div class="line">        <span class="comment">// 取出消息，更新UI…</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="1-1-Looper类源码分析"><a href="#1-1-Looper类源码分析" class="headerlink" title="1.1 Looper类源码分析"></a>1.1 Looper类源码分析</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Looper</span> </span>&#123;</div><div class="line">    <span class="comment">// 每个线程中的Looper对象其实是一个ThreadLocal，即线程本地存储(TLS)对象</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal sThreadLocal = <span class="keyword">new</span> ThreadLocal();</div><div class="line">    <span class="comment">// Looper内的消息队列</span></div><div class="line">    <span class="keyword">final</span> MessageQueue mQueue;</div><div class="line">    <span class="comment">// 当前线程</span></div><div class="line">    Thread mThread;</div><div class="line">    <span class="comment">// 。。。其他属性</span></div><div class="line"></div><div class="line">    <span class="comment">// 每个Looper对象中有它的消息队列，和它所属的线程</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Looper</span><span class="params">()</span> </span>&#123;</div><div class="line">        mQueue = <span class="keyword">new</span> MessageQueue();</div><div class="line">        mRun = <span class="keyword">true</span>;</div><div class="line">        mThread = Thread.currentThread();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 我们调用该方法会在调用线程的TLS中创建Looper对象</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">prepare</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (sThreadLocal.get() != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">// 试图在有Looper的线程中再次创建Looper将抛出异常</span></div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);</div><div class="line">        &#125;</div><div class="line">        sThreadLocal.set(<span class="keyword">new</span> Looper());</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 其他方法</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;...&#125;</div><div class="line"><span class="comment">//结束一个looper循环</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quit</span><span class="params">()</span></span>&#123;...&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中最重要的就是prepare()方法和loop()方法：<br>(1)    prepare()方法<br>在该方法中先判断sThreadLocal是否为空，这个保证了在一个线程中只能包含一个Looper实例。若sThreadLocal不为空，则将一个Looper的实例放入sThreadLocal中。<br>在new Looper()方法中创建一个MessageQueue消息队列。<br>(2)    loope()方法</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">//获得Looper实例</span></div><div class="line">    <span class="keyword">final</span> Looper me = myLooper();</div><div class="line">    <span class="keyword">if</span> (me == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"No Looper; Looper.prepare() wasn't called on this thread."</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//获得Looper创建的MessageQueue队列</span></div><div class="line">    <span class="keyword">final</span> MessageQueue queue = me.mQueue;</div><div class="line">    ...</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (;;) &#123;</div><div class="line">        Message msg = queue.next(); <span class="comment">// might block</span></div><div class="line">        <span class="keyword">if</span> (msg == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">// No message indicates that the message queue is quitting.</span></div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        ...</div><div class="line">        <span class="comment">//处理消息</span></div><div class="line">        msg.<span class="keyword">target</span>.dispatchMessage(msg);</div><div class="line">        ...</div><div class="line">        <span class="comment">//释放资源</span></div><div class="line">        msg.recycle();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中myLooper()返回sThreadLocal存储的Looper实例：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function">Looper <span class="title">myLooper</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">return</span> sThreadLocal.<span class="title">get</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>获取Looper中的MessageQueue消息队列，再通过for循环获取Message，使用msg.target.dispatchMessage(msg)把消息发给msg的target（其实就是Handler）的dispatchMessage()方法去处理，最后释放资源。</p>
+<p><strong>总结</strong>：Looper的作用在于与当前线程进行绑定，这样保证一个线程只有一个Looper实例，同时一个Looper实例也只能创建一个MessageQueue消息队列；loop方法不断地从MessageQueue消息队列中获取消息，再交给消息的target的dispatchMessage()方法来处理消息。</p>
+<h4 id="2-Handler：异步消息处理"><a href="#2-Handler：异步消息处理" class="headerlink" title="2. Handler：异步消息处理"></a>2. Handler：异步消息处理</h4><p>在Looper中已经创建了一个MessageQueue并且可获取到了消息，那Looper内的消息从哪里来的呢？loop方法中调用target.dispatchMessage()方法又是怎么样处理消息的呢？Handler的作用开始体现了，我们都是直接实例化Handler：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mHandler = <span class="keyword">new</span> Handler()&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">        <span class="comment">// 取出消息，更新UI…</span></div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><strong>Handler类的源码分析</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">handler</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">final</span> MessageQueue mQueue;  <span class="comment">// 关联的MQ</span></div><div class="line">    <span class="keyword">final</span> Looper mLooper;  <span class="comment">// 关联的looper</span></div><div class="line">    <span class="keyword">final</span> Callback mCallback;<span class="comment">//一个回调用的类</span></div><div class="line">    ....<span class="comment">// 其他属性</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">()</span> </span>&#123;</div><div class="line">        ....<span class="comment">//其它代码</span></div><div class="line"></div><div class="line">        <span class="comment">// 默认将关联当前线程的looper</span></div><div class="line">        mLooper = Looper.myLooper();</div><div class="line">        <span class="comment">// looper不能为空，即该默认的构造方法只能在looper线程中使用</span></div><div class="line">        <span class="keyword">if</span> (mLooper == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</div><div class="line">                <span class="string">"Can't create handler inside thread that has not called Looper.prepare()"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 重要！！！直接把关联looper的MQ作为自己的MQ，因此它的消息将发送到关联looper的MQ上</span></div><div class="line">        mQueue = mLooper.mQueue;</div><div class="line">        mCallback = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 其他方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>（1）Looper和Handler关联<br>其中Handler和Looper通过Looper.myLooper()进行关联，再获取Looper的MessageQueue这样就和Handler进行关联。<br>（2）在android应用中，我们创建Handler之后，将需要传递的消息数据用Message进行封装，再通过Handler的sendMessage()方法或者sendEmptyMessageDelayed()方法将消息发送出去，发出去之后怎么将消息存入MessageQueue呢?</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">sendMessage</span><span class="params">(Message msg)</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">return</span> <span class="title">sendMessageDelayed</span><span class="params">(msg, <span class="number">0</span>)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">sendEmptyMessageDelayed</span><span class="params">(<span class="keyword">int</span> what, <span class="keyword">long</span> delayMillis)</span> </span>&#123;</div><div class="line">    Message msg = Message.obtain();</div><div class="line">    msg.what = what;</div><div class="line">    <span class="function"><span class="keyword">return</span> <span class="title">sendMessageDelayed</span><span class="params">(msg, delayMillis)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="function"><span class="keyword">boolean</span> <span class="title">sendMessageDelayed</span><span class="params">(Message msg, <span class="keyword">long</span> delayMillis)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span> (delayMillis &lt; <span class="number">0</span>) &#123;</div><div class="line">        delayMillis = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);</div><div class="line">&#125;</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">sendMessageAtTime</span><span class="params">(Message msg, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</div><div class="line">    MessageQueue queue = mQueue;</div><div class="line">    <span class="keyword">if</span> (queue == <span class="keyword">null</span>) &#123;</div><div class="line">        RuntimeException e = <span class="keyword">new</span> RuntimeException(</div><div class="line">                <span class="keyword">this</span> + <span class="string">" sendMessageAtTime() called with no mQueue"</span>);</div><div class="line">        Log.w(<span class="string">"Looper"</span>, e.getMessage(), e);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">return</span> <span class="title">enqueueMessage</span><span class="params">(queue, msg, uptimeMillis)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Handler发送消息之后，最后到<strong>enqueueMessage()</strong> 方法中将消息存储到MessageQueue里。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">boolean</span> <span class="title">enqueueMessage</span><span class="params">(MessageQueue queue, Message msg, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</div><div class="line">    msg.<span class="keyword">target</span> = <span class="keyword">this</span>;</div><div class="line">    <span class="keyword">if</span> (mAsynchronous) &#123;</div><div class="line">        msg.setAsynchronous(<span class="keyword">true</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">return</span> queue.<span class="title">enqueueMessage</span><span class="params">(msg, uptimeMillis)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>msg.target = this就标记了在Looper中所用到的target为Handler。</strong><br>进一步queue.enqueueMessage方法：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function">final boolean <span class="title">enqueueMessage</span>(<span class="params">Message msg, <span class="keyword">long</span> <span class="keyword">when</span></span>) </span>&#123;</div><div class="line"></div><div class="line">      Message p = mMessages;</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (p == <span class="literal">null</span> || <span class="keyword">when</span> == <span class="number">0</span> || <span class="keyword">when</span> &lt; p.<span class="keyword">when</span>) &#123;</div><div class="line">         msg.next = p;</div><div class="line">         mMessages = msg;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span> &#123;</div><div class="line">             Message prev = <span class="literal">null</span>;</div><div class="line">             <span class="keyword">while</span> (p != <span class="literal">null</span> &amp;&amp; p.<span class="keyword">when</span> &lt;= <span class="keyword">when</span>) &#123;</div><div class="line">                    prev = p;</div><div class="line">                    p = p.next;</div><div class="line">             &#125;</div><div class="line">             msg.next = prev.next;</div><div class="line">             prev.next = msg;</div><div class="line">      &#125;</div><div class="line">    ...<span class="comment">//</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从代码中可以看出，从Handler发出来的消息是按照时间存储到MessageQueue中的。<br>（3）Looper中的msg.target.dispatchMessage(msg)方法<br>先看方法dispatchMessage()，注意这里执行的过程是存在优先级的（从上到下）。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">dispatchMessage</span><span class="params">(Message msg)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (msg.callback != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="comment">// 如果message设置了callback，即runnable消息，处理callback！</span></div><div class="line">        handleCallback(msg);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// 如果handler本身设置了callback，则执行callback</span></div><div class="line">        <span class="keyword">if</span> (mCallback != <span class="keyword">null</span>) &#123;</div><div class="line">             <span class="comment">/* 这种方法允许让activity等来实现Handler.Callback接口，避免了自己编写handler重写handleMessage方法. */</span></div><div class="line">            <span class="keyword">if</span> (mCallback.handleMessage(msg)) &#123;</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 如果message没有callback，则调用Handler的子类去处理</span></div><div class="line">        handleMessage(msg);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后调用了<strong>handleMessage</strong>()方法，该方法是子类中进行消息处理必须重写的方法。<br>总结（梳理Looper-&gt;Handler）：<br>（1）Looper.prepare()在线程中准备一个Looepr实例，并在该实例中创建一个MessageQueue消息队列（有且只有一个）；<br>（2）Looper.loop()让当前线程进入一个无线循环，不断从MessageQueue中读取信息，让后回调msg.target.dispatchMessage()方法；<br>（3）Handler的构造方法会首先得到当前线程中保存的Looper实例，进而与Looper实例中的MessageQueue相关联；<br>（4）Handler的sendMessage方法，会给msg的target赋值为handler自身，然后将消息加入MessageQueue队列中；<br>（5）在构造Handler实例时，我们会重写handleMessage方法，也就是msg.target.dispatchMessage(msg)最终调用的方法，在此对消息进行处理。</p>
+<h3 id="二、AsyncTask基础"><a href="#二、AsyncTask基础" class="headerlink" title="二、AsyncTask基础"></a>二、AsyncTask基础</h3><ol>
+<li><p>构建AsyncTask子类的参数<br>AsyncTask<params,progress,result>是一个抽象类，通常被继承实现。继承AsyncTask需要制定如下三个泛型参数：<br>（1）    Params：启动任务时输入参数的类型，该参数是一个varags，比如String…，相当于String[]<br>（2）    Progress：后台任务执行中返回值的类型,该参数是一个varags，比如String…，相当于String[]<br>（3）    Result：后台任务执行完成后返回的结果类型</params,progress,result></p>
+</li>
+<li><p>构建AsyncTask子类的回调方法<br>（1）    doInBackground：必须重写，异步执行后台线程将要完成的任务（耗时操作处理）（<em>Second</em>）<br>（2）    onPreExecute：执行后台耗时操作前需要调用，通常用户完成一些初始化操作（<em>First</em>）<br>（3）    onPostExecute：当doInBackground()完成后，系统会自动调用onPostExecute，并将doInBackground方法返回的值传给该方法（<em>Fourth</em>）<br>（4）    onProgressUpdate：在doInBackground()方法中调用publishProgress()方法更新任务的执行进度后，就会触发该方法（<em>Third</em>）</p>
+</li>
+<li><p>使用步骤<br>（1）    创建一个AsyncTask的子类，对象创建时带3个参数（参数1，参数2，参数3）；<br>（2）    调用对象的execute()时，启动异步加载进程，执行doInBackground()的代码。execute()中所传递的参数类型在参数1中描述；<br>（3）    若异步加载需要对某些进行初始化处理，可以在onPreExecute()方法中进行，注意的是这些代码都是在UI线程中执行的；<br>（4）    执行完异步加载后，需要进行某些处理，例如停止某些UI动画、进度条消失等等，可以重新onPostExecute()方法，同样这些代码都是在UI线程中执行的。该方法将doInBackground()方法的返回值作为onPostExecute()参数，参数类型如参数3描述。<br>（5）    在执行异步加载的过程中，若需要先UI线程报告（返回值）某个处理状态，可以通过publishProgress()方法来触发，这样在UI主线程中将执行重写后的onProgressUpdate()的代码，其中传递的参数类型如参数2描述。</p>
+</li>
+</ol>
+<p><strong>注意</strong>；正确使用AsyncTask的准则：<br>1) Task的实例必须在UI 线程中创建；<br>2) execute方法必须在UI 线程中调用；<br>3) 不要手动的调用onPreExecute(), onPostExecute(Result)，doInBackground(Params…), onProgressUpdate(Progress…)这几个方法，需要在UI线程中实例化这个task来调用；<br>4) 该task只能被执行一次，否则多次调用时将会出现异常。</p>
+<p>小例子：异步记载网络图片（进度条+ImageView）。</p>
+<ol>
+<li>在doInBackground方法中<br>String url = “网络图片的地址”;<br>Bitmap bitmap = null;<br>URLConnection connection;<br>InputStream is;<br>connection = new URL(url).openConnection();<br>BufferedInputStream bis = new BuferedInputStream(is);<br>bitmap = BitmapFactory.decodeStream(bis);</li>
+<li>在onPreExecute方法中显示进度</li>
+<li>在onPostExecute方法中返回得到的Bitmap图，再隐藏进度。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/02/MVP/" rel="next" title="MVP——最通俗易懂的理解方式">
+                <i class="fa fa-chevron-left"></i> MVP——最通俗易懂的理解方式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/12/字符串面试知识点/" rel="prev" title="字符串面试知识点">
+                字符串面试知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Fox-Legend" />
+          <p class="site-author-name" itemprop="name">Fox-Legend</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Fox-Legend" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/QJlinghu" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yosef-gao.github.io/index.html" title="yosef-gao" target="_blank">yosef-gao</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、-Handler-Message-Looper基础"><span class="nav-number">1.</span> <span class="nav-text">一、 Handler+Message+Looper基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Looper：线程循环工作"><span class="nav-number">1.1.</span> <span class="nav-text">1.    Looper：线程循环工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-Looper类源码分析"><span class="nav-number">1.2.</span> <span class="nav-text">1.1 Looper类源码分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Handler：异步消息处理"><span class="nav-number">1.3.</span> <span class="nav-text">2. Handler：异步消息处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、AsyncTask基础"><span class="nav-number">2.</span> <span class="nav-text">二、AsyncTask基础</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fox-Legend</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1bB4GpXl0cIhG0yvn0c41SIi-gzGzoHsz", "8MpzaQJDbI6URX2jlon3fdUq");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

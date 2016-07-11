@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -84,19 +84,31 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="元注解元注解的作用就是负责注解其他的注解。Java(从Java5.0)中定义了4个标准的meta-annotation类型.
+
+@Target
+@Retention
+@Documented
+@Inherited">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/07/11/hello-world/index.html">
+<meta property="og:title" content="Java注解学习">
+<meta property="og:url" content="http://yoursite.com/2016/07/06/注解（Annotation）/index.html">
 <meta property="og:site_name" content="Fox-Legend">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-07-11T03:20:39.470Z">
+<meta property="og:description" content="元注解元注解的作用就是负责注解其他的注解。Java(从Java5.0)中定义了4个标准的meta-annotation类型.
+
+@Target
+@Retention
+@Documented
+@Inherited">
+<meta property="og:updated_time" content="2016-07-06T11:21:07.594Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Java注解学习">
+<meta name="twitter:description" content="元注解元注解的作用就是负责注解其他的注解。Java(从Java5.0)中定义了4个标准的meta-annotation类型.
+
+@Target
+@Retention
+@Documented
+@Inherited">
 
 
 
@@ -117,9 +129,9 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/11/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/06/注解（Annotation）/"/>
 
-  <title> Hello World | Fox-Legend </title>
+  <title> Java注解学习 | Fox-Legend </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +261,7 @@ Quick">
             
             
               
-                Hello World
+                Java注解学习
               
             
           </h1>
@@ -261,11 +273,30 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-11T11:20:39+08:00" content="2016-07-11">
-              2016-07-11
+            <time itemprop="dateCreated" datetime="2016-07-06T13:29:13+08:00" content="2016-07-06">
+              2016-07-06
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -276,7 +307,7 @@ Quick">
 
           
           
-             <span id="/2016/07/11/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+             <span id="/2016/07/06/注解（Annotation）/" class="leancloud_visitors" data-flag-title="Java注解学习">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -298,15 +329,47 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h3 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h3><p>元注解的作用就是负责注解其他的注解。Java(从Java5.0)中定义了4个标准的meta-annotation类型.</p>
+<ol>
+<li>@Target</li>
+<li>@Retention</li>
+<li>@Documented</li>
+<li>@Inherited<a id="more"></a>
+<h4 id="Target"><a href="#Target" class="headerlink" title="@Target"></a>@Target</h4>@Target说明了Annotation所修饰的对象范围:Annotation可被用于 packages、types（类、接口、枚举、Annotation类型）、类型成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch参数）.在Annotation类型的声明中使用了target可更加明晰其修饰的目标.<br><strong>作用：</strong> 用于描述注解的使用范围（即：被描述的注解可以用在什么地方）</li>
+</ol>
+<p><strong>取值(ElementType)有：</strong></p>
+<ol>
+<li>CONSTRUCTOR:用于描述构造器</li>
+<li>FIELD:用于描述域</li>
+<li>LOCAL_VARIABLE:用于描述局部变量</li>
+<li>METHOD:用于描述方法</li>
+<li>PACKAGE:用于描述包</li>
+<li>PARAMETER:用于描述参数</li>
+<li>TYPE:用于描述类、接口(包括注解类型) 或enum声明<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 注解Table可以用于注解类、接口(包括注解类型)或者enum声明*/</span></div><div class="line"><span class="variable">@Target</span>(ElementType.TYPE)</div><div class="line">public <span class="variable">@interface</span> Table&#123;</div><div class="line">&#125;</div><div class="line"><span class="comment">/* 仅可用于注解类的成员变量*/</span></div><div class="line"><span class="variable">@Target</span>(ElementType.FIELD)</div><div class="line">public <span class="variable">@interface</span> NoDBColumn&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Retention"><a href="#Retention" class="headerlink" title="@Retention"></a>@Retention</h4><p>@Retention定义了该Annotation被保留的时间长短:某些Annotation仅出现在源代码中,而被编译器丢弃;而另一些却被编译在class文件中;编译在class文件中的Annotation可能会被虚拟机忽略,而另一些在class被装载时将被读取（请注意并不影响class的执行,因为Annotation与class在使用上是被分离的）.使用这个meta-Annotation可以对 Annotation的“生命周期”限制.<br><strong>作用：</strong><br>表示需要在什么级别保存该注释信息，用于描述注解的生命周期（即：被描述的注解在什么范围内有效）</p>
+<p><strong>取值（RetentionPoicy）有：</strong></p>
+<ol>
+<li>SOURCE:在源文件中有效（即源文件保留）:Annotation只保留在源代码中，编译器编译时，直接丢弃这种Annotation.</li>
+<li>CLASS:在class文件中有效（即class保留）:编译器把Annotation记录在class文件中。当运行Java程序时，JVM中不再保留该Annotation.</li>
+<li>RUNTIME:在运行时有效（即运行时保留）:编译器把Annotation记录在class文件中。当运行Java程序时，JVM会保留该Annotation，程序可以通过反射获取该Annotation的信息.<br>Retention meta-annotation类型有唯一的value作为成员，它的取值来自java.lang.annotation.RetentionPolicy的枚举类型值。<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Column注解的的RetentionPolicy的属性值是RUTIME,这样注解处理器可以通过反射，获取到该注解的属性值，从而去做一些运行时的逻辑处理*/</span></div><div class="line"><span class="variable">@Target</span>(ElementType.FIELD)</div><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line">public <span class="variable">@interface</span> Column &#123;</div><div class="line">    public String name() default "fieldName";</div><div class="line">    public String setFuncName() default "setField";</div><div class="line">    public String getFuncName() default "getField";</div><div class="line">    public boolean defaultDBValue() default false;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h4><p>@Documented用于描述其它类型的annotation应该被作为被标注的程序成员的公共API,因此可以被例如javadoc此类的工具文档化。Documented是一个标记注解，没有成员。</p>
+<h4 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><p>@Inherited 元注解是一个标记注解,@Inherited阐述了某个被标注的类型是被继承的.如果一个使用了@Inherited修饰的annotation类型被用于一个class,则这个annotation将被用于该class的子类.</p>
+<p><em>注意：</em> @Inherited annotation类型是被标注过的class的子类所继承。类并不从它所实现的接口继承annotation，方法并不从它所重载的方法继承annotation。</p>
+<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><p>使用@interface自定义注解时，自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。@interface用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型（返回值类型只能是基本类型、Class、String、enum）。可以通过default来声明参数的默认值.<br><strong>定义注解格式：</strong><br>public /@interface 注解名 {定义体}</p>
+<p><strong>注解参数的可支持数据类型：</strong></p>
+<ol>
+<li>所有基本数据类型（int,float,boolean,byte,double,char,long,short)</li>
+<li>String类型</li>
+<li>Class类型</li>
+<li>enum类型</li>
+<li>Annotation类型</li>
+<li>以上所有类型的数组<br><strong>Annotation类型里面的参数该怎么设定:</strong><br>第一,只能用public或默认(default)这两个访问权修饰.例如,String value();这里把方法设为defaul默认类型；　 　<br>第二,参数成员只能用基本类型byte,short,char,int,long,float,double,boolean八种基本数据类型和 String,Enum,Class,annotations等数据类型,以及这一些类型的数组.例如,String value();这里的参数成员就为String;　　<br>第三,如果只有一个参数成员,最好把参数名称设为”value”,后加小括号.</li>
+</ol>
+<h4 id="注解元素的默认值"><a href="#注解元素的默认值" class="headerlink" title="注解元素的默认值"></a>注解元素的默认值</h4><p>注解元素必须有确定的值，要么在定义注解的默认值中指定，要么在使用注解时指定，非基本类型的注解元素的值不可为null。因此, 使用空字符串或0作为默认值是一种常用的做法。这个约束使得处理器很难表现一个元素的存在或缺失的状态，因为每个注解的声明中，所有元素都存在，并且都具有相应的值，为了绕开这个约束，我们只能定义一些特殊的值，例如空字符串或者负数，一次表示某个元素不存在，在定义注解时，这已经成为一个习惯用法。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="variable">@Target</span>(ElementType.FIELD)</div><div class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="variable">@Documented</span></div><div class="line">public <span class="variable">@interface</span> FruitProvider &#123;</div><div class="line">  public int id() default -1;</div><div class="line">  public String name() default "";</div><div class="line">  public String address() default "";</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -326,21 +389,27 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/10/自定义View之App用户头像截取/" rel="next" title="自定义View之App用户头像截取控件">
-                <i class="fa fa-chevron-left"></i> 自定义View之App用户头像截取控件
+              <a href="/2016/06/30/Spring-App/" rel="next" title="Spring配置以及使用">
+                <i class="fa fa-chevron-left"></i> Spring配置以及使用
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/11/agera/" rel="prev" title="解析Google响应框架——agera">
-                解析Google响应框架——agera <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/10/自定义View之App用户头像截取/" rel="prev" title="自定义View之App用户头像截取控件">
+                自定义View之App用户头像截取控件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -489,7 +558,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#元注解"><span class="nav-number">1.</span> <span class="nav-text">元注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Target"><span class="nav-number">1.1.</span> <span class="nav-text">@Target</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Retention"><span class="nav-number">1.2.</span> <span class="nav-text">@Retention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Documented"><span class="nav-number">1.3.</span> <span class="nav-text">@Documented</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Inherited"><span class="nav-number">1.4.</span> <span class="nav-text">@Inherited</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义注解"><span class="nav-number">2.</span> <span class="nav-text">自定义注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注解元素的默认值"><span class="nav-number">2.1.</span> <span class="nav-text">注解元素的默认值</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

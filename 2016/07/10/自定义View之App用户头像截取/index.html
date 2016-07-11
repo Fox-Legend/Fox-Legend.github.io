@@ -1,0 +1,752 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1、引言在平时开发App过程中，用户需要设置头像的，从众多app的头像设置来看，基本可分为2中情况：1)圆形头像(如QQ,新浪微博等);2)矩形头像(如微信等).其实也有好多高仿QQ截图或者微信头像截图的博文,但是都不是真正的高仿,只能作为一个参考,直接拿来用还不够完美,索性自己的也需要这个控件,自己动手写一个.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义View之App用户头像截取控件">
+<meta property="og:url" content="http://yoursite.com/2016/07/10/自定义View之App用户头像截取/index.html">
+<meta property="og:site_name" content="Fox-Legend">
+<meta property="og:description" content="1、引言在平时开发App过程中，用户需要设置头像的，从众多app的头像设置来看，基本可分为2中情况：1)圆形头像(如QQ,新浪微博等);2)矩形头像(如微信等).其实也有好多高仿QQ截图或者微信头像截图的博文,但是都不是真正的高仿,只能作为一个参考,直接拿来用还不够完美,索性自己的也需要这个控件,自己动手写一个.">
+<meta property="og:image" content="http://yoursite.com/clip.png">
+<meta property="og:image" content="http://yoursite.com/jg.png">
+<meta property="og:image" content="http://yoursite.com/Xfermode.png">
+<meta property="og:updated_time" content="2016-07-10T14:36:03.212Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义View之App用户头像截取控件">
+<meta name="twitter:description" content="1、引言在平时开发App过程中，用户需要设置头像的，从众多app的头像设置来看，基本可分为2中情况：1)圆形头像(如QQ,新浪微博等);2)矩形头像(如微信等).其实也有好多高仿QQ截图或者微信头像截图的博文,但是都不是真正的高仿,只能作为一个参考,直接拿来用还不够完美,索性自己的也需要这个控件,自己动手写一个.">
+<meta name="twitter:image" content="http://yoursite.com/clip.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/10/自定义View之App用户头像截取/"/>
+
+  <title> 自定义View之App用户头像截取控件 | Fox-Legend </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Fox-Legend</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">To stand in the spotlight of life, one must have experience in the shadows of setbacks.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自定义View之App用户头像截取控件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-10T13:16:54+08:00" content="2016-07-10">
+              2016-07-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/10/自定义View之App用户头像截取/" class="leancloud_visitors" data-flag-title="自定义View之App用户头像截取控件">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1、引言"><a href="#1、引言" class="headerlink" title="1、引言"></a>1、引言</h3><p>在平时开发App过程中，用户需要设置头像的，从众多app的头像设置来看，基本可分为2中情况：1)圆形头像(如QQ,新浪微博等);2)矩形头像(如微信等).<br>其实也有好多高仿QQ截图或者微信头像截图的博文,但是都不是真正的高仿,只能作为一个参考,直接拿来用还不够完美,索性自己的也需要这个控件,自己动手写一个.<br><a id="more"></a></p>
+<h3 id="2、功能分析"><a href="#2、功能分析" class="headerlink" title="2、功能分析"></a>2、功能分析</h3><p><img src="clip.png" alt="效果图"></p>
+<p>该控件可通过属性设置头像的大小即中间截图区域的宽度或者半径(代码中通过设置左右边界padding来调节截图窗口),也可以通过手势缩放图片来进行选择你想要的区域,也支持双击图片可自动缩放大小,并且可以根据手指的移动图片的显示.<br>由上述功能可分析出,该控件像是有2个控件叠加的产生的效果,一个ImageView控件，一个中间镂空的透明层控件.<br>对于矩形截图框：我们可以按照以下结构图进行填充：将整个画布分为5部分,其中1-4部分利用设置画笔的透明度来进行填充.<br><img src="jg.png" alt="结构图"><br>对于圆形截图框：在Android在中绘制机制中有一个很神奇的类PorterDuffXferMode,如图所示,它可以利用两个画布的不同叠加模式得到不同的形状,上述控件的效果就可以使用这个类来实现.<br><img src="Xfermode.png" alt="PorterDuffXferMode"></p>
+<h3 id="3、RectOrCircleImageView实现"><a href="#3、RectOrCircleImageView实现" class="headerlink" title="3、RectOrCircleImageView实现"></a>3、RectOrCircleImageView实现</h3><p>因为本文设计的控件可以通过用户的设置进行选择需要哪一种头像截图(圆形还是矩形),代码中对用RECT和CIRCLE,并提供外部可访问的方法对mType进行设置.<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 控件类型选择</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> enum <span class="keyword">TYPE</span> &#123;RECT, CIRCLE&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line">  * 头像截图类型，默认是矩形</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> <span class="keyword">TYPE</span> mType = <span class="keyword">TYPE</span>.RECT;</div><div class="line"></div><div class="line"> <span class="comment">/**</span></div><div class="line"> * 设置绘制的形状</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">TYPE</span> getmType() &#123;</div><div class="line">    <span class="keyword">return</span> mType;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="literal">void</span> setmType(<span class="keyword">TYPE</span> mType) &#123;</div><div class="line">    this.mType = mType;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>RectOrCircleImageView的具体实现分为三步，第一步先实现矩形头像截图；第三部实现圆形头像截图并添加一些手势操作；第三步实现图像截取以及双击图像变大变小.</p>
+<h4 id="3-1-矩形头像截图设计"><a href="#3-1-矩形头像截图设计" class="headerlink" title="3.1 矩形头像截图设计"></a>3.1 矩形头像截图设计</h4><p>实现矩形头像截图需要做的事情总的来说就是：在一张图片上镂空一个矩形区域，其他的区域“隐藏”。如结构图所示，我们将1-4区域用具有一定透明度的画笔进行绘制，第五部分的区域不管它就可以完成,具体步骤在代码中讲解：<br><figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * 水平方向与View的边距,可通过属性进行设置</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> <span class="keyword">int</span> mHorizontalPadding = <span class="number">30</span>;</div><div class="line"> <span class="comment">/**</span></div><div class="line">  * 垂直方向与View的边距</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> <span class="keyword">int</span> mVerticalPadding;</div><div class="line"></div><div class="line"> <span class="comment">/**</span></div><div class="line">  * 圆的直径或者矩形宽度</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> <span class="keyword">int</span> mWidthOrRadius = <span class="number">30</span>;</div><div class="line"> <span class="comment">/**</span></div><div class="line">  * 默认的边界颜色</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> <span class="keyword">int</span> mBorderColor = Color.parseColor(<span class="string">"#FFFFFF"</span>);</div><div class="line"> <span class="comment">/**</span></div><div class="line">  * 边界的宽度</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> <span class="keyword">int</span> mBorderWid = <span class="number">1</span>;</div><div class="line"> <span class="comment">/**</span></div><div class="line">  * 画笔</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> Paint mRectPaint;</div><div class="line"> <span class="keyword">public</span> RectOrCircleImageView(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr) &#123;</div><div class="line">      <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">      <span class="keyword">super</span>.setScaleType(ScaleType.MATRIX);<span class="comment">//缩放模式为矩阵,之后会用到</span></div><div class="line">      <span class="keyword">this</span>.setBackgroundColor(Color.BLACK);</div><div class="line"></div><div class="line">      <span class="keyword">this</span>.mBorderWid = (<span class="keyword">int</span>) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,mBorderWid,</div><div class="line">              getResources().getDisplayMetrics());</div><div class="line"></div><div class="line">      <span class="keyword">this</span>.mWidthOrRadius = (<span class="keyword">int</span>) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,mWidthOrRadius,</div><div class="line">              getResources().getDisplayMetrics());</div><div class="line"></div><div class="line">      TypedArray a = context.obtainStyledAttributes(attrs,R.styleable.RectOrCircleImageView);</div><div class="line">      <span class="keyword">this</span>.mHorizontalPadding = (<span class="keyword">int</span>) a.getDimension(R.styleable.RectOrCircleImageView_width,<span class="number">30</span>)+ <span class="number">5</span>;</div><div class="line">      a.recycle();</div><div class="line"><span class="comment">/*        Log.d("Width","-&gt;" + mHorizontalPadding);*/</span></div><div class="line">      <span class="keyword">this</span>.mRectPaint = <span class="keyword">new</span> Paint();</div><div class="line">      mRectPaint.setAntiAlias(<span class="literal">true</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">@Override</span></div><div class="line"> <span class="keyword">protected</span> <span class="keyword">void</span> onDraw(Canvas canvas) &#123;</div><div class="line">     <span class="keyword">super</span>.onDraw(canvas);</div><div class="line">     <span class="keyword">if</span>(mType == TYPE.RECT)</div><div class="line">     &#123;</div><div class="line">         <span class="comment">//计算矩形截图区域宽度</span></div><div class="line">         mWidthOrRadius = getWidth() - <span class="number">2</span> * mHorizontalPadding;</div><div class="line">         <span class="comment">//计算垂直方向的间距</span></div><div class="line">         mVerticalPadding = (getHeight() -  mWidthOrRadius) / <span class="number">2</span>;</div><div class="line">         <span class="comment">//设置画笔的透明度以及颜色</span></div><div class="line">         mRectPaint.setColor(Color.parseColor(<span class="string">"#50000000"</span>));</div><div class="line">         mRectPaint.setStyle(Paint.Style.FILL);</div><div class="line"></div><div class="line">         <span class="comment">//绘制左边矩形</span></div><div class="line">         canvas.drawRect(<span class="number">0</span>,<span class="number">0</span>,mHorizontalPadding,getHeight(),mRectPaint);</div><div class="line">         <span class="comment">//绘制右边矩形</span></div><div class="line">         canvas.drawRect(getWidth() - mHorizontalPadding,<span class="number">0</span>,getWidth(),getHeight(),mRectPaint);</div><div class="line">         <span class="comment">//绘制上边矩形</span></div><div class="line">         canvas.drawRect(mHorizontalPadding,<span class="number">0</span>,getWidth() - mHorizontalPadding,mVerticalPadding,mRectPaint);</div><div class="line">         <span class="comment">//绘制下边矩形</span></div><div class="line">         canvas.drawRect(mHorizontalPadding,getHeight() - mVerticalPadding,getWidth() - mHorizontalPadding,getHeight(),mRectPaint);</div><div class="line"></div><div class="line">         <span class="comment">// 绘制截图边框</span></div><div class="line">         mRectPaint.setColor(mBorderColor);</div><div class="line">         mRectPaint.setStrokeWidth(mBorderWid);</div><div class="line">         mRectPaint.setStyle(Paint.Style.STROKE);</div><div class="line">         canvas.drawRect(mHorizontalPadding,mVerticalPadding,getWidth() - mHorizontalPadding,</div><div class="line">                 getHeight() - mVerticalPadding,mRectPaint);</div><div class="line">     &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mType  == TYPE.CIRCLE)&#123;</div><div class="line">       <span class="comment">//代码省略,后面讲</span></div><div class="line">     &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上述代码中我们通过设置水平方向的边距mHorizontalPadding（默认是30,可通过属性进行设置）,根据边距计算出正方形的边长，接下来就是按照结构图分别绘制1、2、3、4四个区域，最后就是绘制我们的正方形区域的边界(其实就是绘制一个空心的矩形).</p>
+<h4 id="3-2-圆形头像截图设计"><a href="#3-2-圆形头像截图设计" class="headerlink" title="3.2  圆形头像截图设计"></a>3.2  圆形头像截图设计</h4><p>圆形的截图区域就不能直接用绘制的方式,因为系统没有提供这个格式的画笔啊,所以我们采用PorterDuffXferMode的Xor模式来进行镂空处理,具体就是在图片上(或者说是控件上)绘制一层遮罩层,这层有点像矩形截图区域中绘制的透明层一样,就是“掩盖”住原图,再在以控件的中心位置为圆点,绘制一个实心圆,这时设置一直画笔的PorterDuffXfermode模式为XOR,并再次在上面的实心圆上绘制同样大小的圆,这样就可以得到我们要的效果.<br><figure class="highlight pony"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">else</span> <span class="keyword">if</span>(mType  == <span class="type">TYPE</span>.<span class="type">CIRCLE</span>)&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 利用Xfermode进行设置：Xor挖空中间显示部分</div><div class="line">     */</div><div class="line">    <span class="comment">//计算圆形的半径</span></div><div class="line">    mWidthOrRadius = getWidth() - <span class="number">2</span> * mHorizontalPadding;</div><div class="line">    <span class="comment">//计算垂直方向的间距</span></div><div class="line">    mVerticalPadding = (getHeight() -  mWidthOrRadius) / <span class="number">2</span>;</div><div class="line">    <span class="comment">//遮罩层的画笔设置</span></div><div class="line">    mRectPaint.setColor(<span class="type">Color</span>.parseColor(<span class="string">"#50000000"</span>));</div><div class="line">    mRectPaint.setStyle(<span class="type">Paint</span>.<span class="type">Style</span>.<span class="type">FILL</span>);</div><div class="line">    <span class="comment">//阴影层为整个屏幕大小(整个控件)</span></div><div class="line">    <span class="type">RectF</span> rectF = <span class="function"><span class="keyword">new</span> <span class="title">RectF</span>(<span class="number">0</span>,<span class="number">0</span>,getWidth(),<span class="title">getHeight</span>());</span></div><div class="line"></div><div class="line">    <span class="comment">// 绘制不透明的实心圆画笔</span></div><div class="line">    <span class="title">Paint</span> <span class="title">mPaintCirle</span> = <span class="title">new</span> <span class="title">Paint</span>();</div><div class="line">    <span class="title">mPaintCirle</span>.<span class="title">setStrokeWidth</span>(mWidthOrRadius / <span class="number">2</span>);</div><div class="line">    <span class="title">mPaintCirle</span>.<span class="title">setARGB</span>(<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);<span class="comment">//黑色不透明</span></div><div class="line">    <span class="comment">//圆形画笔设置</span></div><div class="line">    <span class="title">mCirclePaint</span>.<span class="title">setXfermode</span>(new <span class="type">PorterDuffXfermode</span>(<span class="type">PorterDuff</span>.<span class="type">Mode</span>.<span class="type">XOR</span>));</div><div class="line">    <span class="comment">//阴影层图像</span></div><div class="line">    <span class="title">Bitmap</span> <span class="title">mCircleBmp</span> = <span class="title">Bitmap</span>.<span class="title">createBitmap</span>(getWidth(),<span class="title">getHeight</span>(), <span class="title">Bitmap</span>.<span class="title">Config</span>.<span class="title">ARGB_8888</span>);</div><div class="line">    <span class="title">Canvas</span> <span class="title">mCanvas</span> = <span class="title">new</span> <span class="title">Canvas</span>(mCircleBmp);</div><div class="line"></div><div class="line">    <span class="comment">//绘制阴影层（整个屏幕）</span></div><div class="line">    <span class="title">mCanvas</span>.<span class="title">drawRect</span>(rectF,mRectPaint);</div><div class="line">    <span class="comment">//绘制实心圆,绘制完后，在mCanvas画布中，mPaintRect和mPaintCirle相交部分即被掏空</span></div><div class="line">    <span class="title">mCanvas</span>.<span class="title">drawCircle</span>( getWidth()/2, <span class="title">getHeight</span>()/2, <span class="title">mWidthOrRadius</span> / 2, <span class="title">mPaintCirle</span>);</div><div class="line">    <span class="title">mCanvas</span>.<span class="title">drawCircle</span>( getWidth()/2, <span class="title">getHeight</span>()/2, <span class="title">mWidthOrRadius</span> / 2, <span class="title">mCirclePaint</span>);</div><div class="line">    <span class="comment">//将扣空之后的阴影画布添加到原来的画布canvas中</span></div><div class="line">    <span class="title">canvas</span>.<span class="title">drawBitmap</span>(mCircleBmp, null, rectF, new <span class="type">Paint</span>());</div><div class="line">    <span class="comment">//绘制圆环</span></div><div class="line">    <span class="title">mRectPaint</span>.<span class="title">setColor</span>(mBorderColor);</div><div class="line">    <span class="title">mRectPaint</span>.<span class="title">setStrokeWidth</span>(mBorderWid);</div><div class="line">    <span class="title">mRectPaint</span>.<span class="title">setStyle</span>(<span class="type">Paint</span>.<span class="type">Style</span>.<span class="type">STROKE</span>);</div><div class="line">    <span class="title">canvas</span>.<span class="title">drawCircle</span>( getWidth() / 2, <span class="title">getHeight</span>() / 2, <span class="title">mWidthOrRadius</span> / 2, <span class="title">mRectPaint</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在上述代码中我们已经完成了矩形和圆形的设计,但在平时选择头像图像时都会放大或者缩小图片选择喜欢的区域,所以下面会通过手势缩放图像并添加手势移动图像的功能.<br>但是在图片第一次加载到控件时,为了视觉上的完美,需要将原始图片本身大小大于屏幕大小的图片缩放到屏幕大小并将其移动至屏幕中心处,这个过程需要在该控件还没有加载到ViewTree视觉树之前进行处理,即在onGlobalLayout()方法中对原图进行缩放并根据mWidthOrRadius计算出最小的缩放比例,若图片本身大小都小于mWidthOrRadius那么就不需要处理,具体细节看代码<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * View添加到Window，在视图树中添加GlobalLayout监听</div><div class="line">*/</div><div class="line">@Override</div><div class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onAttachedToWindow() &#123;</div><div class="line">    <span class="keyword">super</span>.onAttachedToWindow();</div><div class="line">    getViewTreeObserver().addOnGlobalLayoutListener(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">@Override</div><div class="line"><span class="keyword">protected</span> <span class="keyword">void</span> onDetachedFromWindow() &#123;</div><div class="line">    <span class="keyword">super</span>.onDetachedFromWindow();</div><div class="line">    getViewTreeObserver().removeOnGlobalLayoutListener(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 对控件图片资源进行缩放，若大于屏幕长宽，则缩放至屏幕大小</div><div class="line"> * 1：长比屏幕长；</div><div class="line"> * 2：宽比屏幕框；</div><div class="line"> * 3：长宽都长</div><div class="line"> */</div><div class="line">@Override</div><div class="line"><span class="keyword">public</span> <span class="keyword">void</span> onGlobalLayout() &#123;<span class="comment">//整个视图树布局发生变化时触发(该方法会被调用多次)</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span>(isOnce)&#123;</div><div class="line">        Drawable drawable = getDrawable();<span class="comment">//获取图片资源</span></div><div class="line">        <span class="keyword">if</span>(drawable == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">return</span>;</div><div class="line"></div><div class="line">        <span class="built_in">int</span> viewWid = getWidth();<span class="comment">//控件宽</span></div><div class="line">        <span class="built_in">int</span> viewHei = getHeight();<span class="comment">//控件高</span></div><div class="line">        <span class="comment">//图片宽高</span></div><div class="line">        <span class="built_in">int</span> imgWid = drawable.getIntrinsicWidth();</div><div class="line">        <span class="built_in">int</span> imgHei = drawable.getIntrinsicHeight();</div><div class="line"></div><div class="line">        <span class="built_in">float</span> <span class="built_in">scale</span> = <span class="number">1.0</span>f;</div><div class="line">        <span class="comment">//图片宽度大小屏幕（控件），高度小于等于屏幕，则缩放至屏幕的宽或者高</span></div><div class="line">        <span class="keyword">if</span>(imgWid &gt; viewWid &amp;&amp; imgHei &lt;= viewHei)&#123;</div><div class="line">            <span class="built_in">scale</span> = viewWid * <span class="number">1.0</span>f / imgWid;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(imgHei &gt; viewHei &amp;&amp; imgWid &lt;= viewWid)&#123;<span class="comment">//图片高度大于屏幕</span></div><div class="line">            <span class="built_in">scale</span> = viewHei * <span class="number">1.0</span>f / imgHei;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 如果宽和高都大于屏幕，则按比例最小适应屏幕大小</span></div><div class="line">        <span class="keyword">if</span> (imgWid &gt; viewWid &amp;&amp; imgHei &gt; viewHei)</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">scale</span> = Math.<span class="built_in">min</span>(viewHei * <span class="number">1.0</span>f / imgHei, viewWid * <span class="number">1.0</span>f / imgWid);</div><div class="line">        &#125;</div><div class="line">        mScale = <span class="built_in">scale</span>;</div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 计算以中间矩形或者圆形的外接矩形最小区域变成为最小边界并计算缩放比例</div><div class="line">         */</div><div class="line">        <span class="comment">//计算最小的缩放比例</span></div><div class="line">        SCALE_MIN = Math.<span class="built_in">max</span>(mWidthOrRadius * <span class="number">1.0</span>f/ imgWid,mWidthOrRadius * <span class="number">1.0</span>f / imgHei) &gt; <span class="number">0.0</span>f ?</div><div class="line">                Math.<span class="built_in">max</span>(mWidthOrRadius * <span class="number">1.0</span>f/ imgWid,mWidthOrRadius * <span class="number">1.0</span>f/ imgHei) : <span class="number">1.0</span>f;</div><div class="line"></div><div class="line">        Log.e(<span class="string">"SCALE"</span>,SCALE_MIN + <span class="string">", "</span> + SCALE_MAX + <span class="string">", "</span> + SCALE_MID);</div><div class="line">        <span class="comment">//将图片缩放并移动至屏幕中心</span></div><div class="line">        mScaleMatrix.postTranslate((viewWid - imgWid) / <span class="number">2</span>, (viewHei - imgHei) / <span class="number">2</span>);</div><div class="line">        mScaleMatrix.postScale(<span class="built_in">scale</span>, <span class="built_in">scale</span>, getWidth() / <span class="number">2</span>, getHeight() / <span class="number">2</span>);</div><div class="line">        setImageMatrix(mScaleMatrix);<span class="comment">//重绘ImageView显示</span></div><div class="line">        isOnce = <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面函数的功能就是完成图片的缩放并移动到屏幕中心.<br>下面实现手势缩放,控件需要实现接口ScaleGestureDetector.OnScaleGestureListener,在其方法onScale中实现手势缩放功能.但是在缩放过程中如果没有边界判断,就会出现白色的空隙,如果移动到截图区域,给用户不好的体验,所以我们要以中心的截图区域为边界,若缩放之后的图片位置已经在截图框内,则会自动移动到截图区域边界处.<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * 最大、中等缩放比例</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> SCALE_MAX = <span class="number">4.0</span>f;</div><div class="line"> <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">float</span> SCALE_MID = <span class="number">2.0</span>f;</div><div class="line"> <span class="keyword">private</span> <span class="built_in">float</span> SCALE_MIN;<span class="comment">//最小缩放比例需要在控件显示后计算</span></div><div class="line"> <span class="comment">/**</span></div><div class="line">   * 图片缩放比例：默认大小不变</div><div class="line">   */</div><div class="line">  <span class="keyword">private</span> <span class="built_in">float</span> mScale = <span class="number">1.0</span>f;</div><div class="line"><span class="comment">/**</span></div><div class="line">  * 缩放的手势检测</div><div class="line">  */</div><div class="line"> <span class="keyword">private</span> ScaleGestureDetector mScaleGestureDetector;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 根据手势的变化，缩放图片</div><div class="line"> * @param detector</div><div class="line"> * @return</div><div class="line"> */</div><div class="line">@Override</div><div class="line"><span class="keyword">public</span> <span class="built_in">boolean</span> onScale(ScaleGestureDetector detector) &#123;</div><div class="line">    <span class="comment">//获得当前的缩放比例</span></div><div class="line">    <span class="built_in">float</span> <span class="built_in">scale</span> = getScale();</div><div class="line">    <span class="built_in">float</span> scaleFactor = detector.getScaleFactor();<span class="comment">//获得手势缩放因子（将要缩放的比例）</span></div><div class="line">    <span class="keyword">if</span>(getDrawable()==<span class="keyword">null</span>)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">//不是一个缩放手势</span></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 缩放范围</div><div class="line">     * 1：放大比例</div><div class="line">     * 2：缩小比例</div><div class="line">     */</div><div class="line">    <span class="keyword">if</span>((<span class="built_in">scale</span> &lt; SCALE_MAX &amp;&amp; scaleFactor &gt; <span class="number">1.0</span>f) || (<span class="built_in">scale</span> &gt;= mScale &amp;&amp; scaleFactor &lt; <span class="number">1.0</span>f))&#123;</div><div class="line">        <span class="comment">//缩小</span></div><div class="line">        <span class="keyword">if</span>((scaleFactor * <span class="built_in">scale</span>) &lt; SCALE_MIN)&#123;</div><div class="line">            scaleFactor = SCALE_MIN / <span class="built_in">scale</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//当前手势要放大的比例大于最大比例，则最多扩大得到最大比例</span></div><div class="line">        <span class="keyword">if</span>(scaleFactor * <span class="built_in">scale</span> &gt; SCALE_MAX)&#123;</div><div class="line">            scaleFactor = SCALE_MAX / <span class="built_in">scale</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//以图片中心为缩放点</span></div><div class="line">        <span class="comment">//mScaleMatrix.postScale(scaleFactor,scaleFactor,getWidth()/2,getHeight()/2);</span></div><div class="line"></div><div class="line">        <span class="comment">//以手势点击处为中心点进行缩放</span></div><div class="line">        mScaleMatrix.postScale(scaleFactor,scaleFactor,detector.getFocusX(),detector.getFocusY());</div><div class="line">        <span class="comment">//边界判断</span></div><div class="line">        checkBorderAndCenterWhenScale();</div><div class="line">        setImageMatrix(mScaleMatrix);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 在手势进行缩放时，需要进行边界检测，移动图片至屏幕中间，避免缩放出现白边</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="keyword">void</span> checkBorderAndCenterWhenScale()&#123;</div><div class="line">    RectF rectF = getMatrixRectF();</div><div class="line">    <span class="comment">//X、Y方向偏移量</span></div><div class="line">    <span class="built_in">float</span> deltaX = <span class="number">0</span>;</div><div class="line">    <span class="built_in">float</span> deltaY = <span class="number">0</span>;</div><div class="line">    <span class="built_in">int</span> wid = getWidth();</div><div class="line">    <span class="built_in">int</span> hei = getHeight();</div><div class="line">    <span class="comment">//当前图片宽大于屏幕，则控制范围</span></div><div class="line">    <span class="keyword">if</span>(rectF.<span class="built_in">width</span>() &gt; wid)&#123;</div><div class="line">        <span class="keyword">if</span>(rectF.left &gt; mHorizontalPadding)&#123;<span class="comment">//左边出现了空白区域</span></div><div class="line">           <span class="comment">// deltaX = -rectF.left;</span></div><div class="line">            deltaX = -(rectF.left - mHorizontalPadding);<span class="comment">//只是回到框的边界处</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(rectF.right &lt; wid - mHorizontalPadding)&#123;<span class="comment">//右边出现空白区域</span></div><div class="line">            <span class="comment">//deltaX = wid - rectF.right;</span></div><div class="line">            deltaX = wid - rectF.right - mHorizontalPadding;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//当前图片高大于屏幕，则控制范围</span></div><div class="line">    <span class="keyword">if</span>(rectF.<span class="built_in">height</span>() &gt; hei)&#123;</div><div class="line">        <span class="keyword">if</span>(rectF.top &gt; mVerticalPadding)&#123;</div><div class="line">            deltaY = -(rectF.top - mVerticalPadding);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(rectF.bottom &lt; hei - mVerticalPadding)&#123;</div><div class="line">            deltaY = hei - rectF.bottom - mVerticalPadding;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//若图片宽高小于屏幕，则让其居中</span></div><div class="line">    <span class="keyword">if</span>(rectF.<span class="built_in">width</span>() &lt; wid)&#123;</div><div class="line">        deltaX = wid * <span class="number">0.5</span>f - rectF.right + <span class="number">0.5</span>f * rectF.<span class="built_in">width</span>();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(rectF.<span class="built_in">height</span>() &lt; hei)&#123;</div><div class="line">        deltaY = hei * <span class="number">0.5</span>f - rectF.bottom + <span class="number">0.5</span>f * rectF.<span class="built_in">height</span>();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//平移(应该加一个动画延迟)</span></div><div class="line">    mScaleMatrix.postTranslate(deltaX,deltaY);</div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 根据当前的缩放矩阵计算图片当前的位置范围</div><div class="line"> * @return</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> RectF getMatrixRectF()&#123;</div><div class="line">    Matrix m = mScaleMatrix;</div><div class="line">    RectF rectF = <span class="keyword">new</span> RectF();</div><div class="line">    Drawable d = getDrawable();</div><div class="line">    <span class="keyword">if</span>(d!=<span class="keyword">null</span>)&#123;</div><div class="line">        <span class="comment">//整张图的四个顶点</span></div><div class="line">        rectF.<span class="built_in">set</span>(<span class="number">0</span>,<span class="number">0</span>,d.getIntrinsicWidth(),d.getIntrinsicHeight());</div><div class="line">        <span class="comment">//根据矩阵变换图片的四个顶点位置</span></div><div class="line">        m.mapRect(rectF);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> rectF;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在完成了图像的放大缩小,那么在放大之后我们想要移动图片进行区域选择,所以需要添加一个手指移动的公共.<br>控件实现接口View.OnTouchListener监听,并实现onTouch方法.在移动图像是也需要进行边界的判断,也不允许出现空白区域.<br><figure class="highlight zephir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 移动滑动距离阈值</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="keyword">float</span> mTouchSlop;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 触点位置坐标</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="keyword">float</span> mLastX;</div><div class="line"><span class="keyword">private</span> <span class="keyword">float</span> mLastY;</div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> lastPointCount = <span class="number">0</span>;<span class="comment">//上一次触点的个数</span></div><div class="line"><span class="comment">/**</span></div><div class="line">* 在移动时需要判断当前图片宽高是否小于屏幕大小,需不需要进行调整移动</div><div class="line">*/</div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isCheckLeftAndRight = <span class="keyword">false</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isCheckTopAndBottom = <span class="keyword">false</span>;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 移动图片</div><div class="line"> * <span class="doctag">@param</span> v</div><div class="line"> * <span class="doctag">@param</span> event</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line">@Override</div><div class="line"><span class="keyword">public</span> <span class="keyword">boolean</span> onTouch(View v, MotionEvent event) &#123;</div><div class="line">    mScaleGestureDetector.onTouchEvent(event);<span class="comment">//手势接受Touch事件</span></div><div class="line">    <span class="keyword">float</span> x = <span class="number">0</span>;</div><div class="line">    <span class="keyword">float</span> y = <span class="number">0</span>;</div><div class="line">    <span class="comment">//触点个数并计算它们的均值</span></div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> pointCount = event.getPointerCount();</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; pointCount;i++)&#123;</div><div class="line">        x += event.getX(i);</div><div class="line">        y += event.getY(i);</div><div class="line">    &#125;</div><div class="line">    x = x / pointCount;</div><div class="line">    y = y / pointCount;</div><div class="line">    <span class="comment">//还不能拖动之前一直更新位置</span></div><div class="line">    <span class="keyword">if</span>(pointCount != lastPointCount)&#123;</div><div class="line">        isCanDrag = <span class="keyword">false</span>;</div><div class="line">        mLastX = x;</div><div class="line">        mLastY = y;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    lastPointCount = pointCount;</div><div class="line">    <span class="keyword">switch</span> (event.getAction())&#123;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</div><div class="line">            <span class="keyword">float</span> dx = x - mLastX;<span class="comment">//</span></div><div class="line">            <span class="keyword">float</span> dy = y - mLastY;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(!isCanDrag)&#123;</div><div class="line">                isCanDrag = isCanDrag(dx,dy);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(isCanDrag) &#123;</div><div class="line">                <span class="comment">//可以拖动</span></div><div class="line">                RectF rectF = getMatrixRectF();<span class="comment">//当前图片位置</span></div><div class="line">                <span class="keyword">if</span>(getDrawable()!=<span class="keyword">null</span>)&#123;</div><div class="line">                    isCheckLeftAndRight = isCheckTopAndBottom = <span class="keyword">true</span>;</div><div class="line">                    <span class="comment">//若图片宽度小于截图区域宽度，则禁止左右移动</span></div><div class="line">                    <span class="keyword">if</span>(rectF.width() &lt; mWidthOrRadius)&#123;</div><div class="line">                        dx = <span class="number">0</span>;</div><div class="line">                        isCheckLeftAndRight = <span class="keyword">false</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">if</span>(rectF.height() &lt; mWidthOrRadius)&#123;</div><div class="line">                        dy = <span class="number">0</span>;</div><div class="line">                        isCheckTopAndBottom = <span class="keyword">false</span>;</div><div class="line">                    &#125;</div><div class="line">                    mScaleMatrix.postTranslate(dx,dy);<span class="comment">//移动</span></div><div class="line">                    <span class="comment">//检测移动是否小于屏幕，不让出现白边</span></div><div class="line">                    checkMoveBounds();</div><div class="line">                    setImageMatrix(mScaleMatrix);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            mLastX = x;</div><div class="line">            mLastY = y;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_UP:</div><div class="line">        <span class="keyword">case</span> MotionEvent.ACTION_CANCEL:</div><div class="line">            lastPointCount = <span class="number">0</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 移动时，进行边界判断</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> void checkMoveBounds()&#123;</div><div class="line">    <span class="comment">//当前图片的位置</span></div><div class="line">    RectF rectF = getMatrixRectF();</div><div class="line">    <span class="keyword">float</span> deltaX = <span class="number">0</span>, deltaY = <span class="number">0</span>;</div><div class="line">    <span class="keyword">final</span> <span class="keyword">float</span> viewWidth = getWidth();</div><div class="line">    <span class="keyword">final</span> <span class="keyword">float</span> viewHeight = getHeight();</div><div class="line">    <span class="comment">// 判断移动或缩放后，图片显示是否超出截图边界</span></div><div class="line">    <span class="keyword">if</span>(rectF.top &gt; mVerticalPadding &amp;&amp; isCheckTopAndBottom)&#123;</div><div class="line">        deltaY = - (rectF.top - mVerticalPadding);<span class="comment">//需要偏移的距离</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(rectF.bottom &lt; viewHeight - mVerticalPadding &amp;&amp; isCheckTopAndBottom)&#123;</div><div class="line">        deltaY = viewHeight - (rectF.bottom + mVerticalPadding);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(rectF.left &gt; mHorizontalPadding &amp;&amp; isCheckLeftAndRight)&#123;</div><div class="line">        deltaX = -(rectF.left - mHorizontalPadding);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (rectF.right &lt; viewWidth - mHorizontalPadding &amp;&amp; isCheckLeftAndRight)</div><div class="line">    &#123;</div><div class="line">        deltaX = viewWidth - (rectF.right + mHorizontalPadding);</div><div class="line">    &#125;</div><div class="line">    mScaleMatrix.postTranslate(deltaX,deltaY);<span class="comment">//移动图像</span></div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 判断当前移动的距离是否满足阈值</div><div class="line"> * <span class="doctag">@param</span> dx</div><div class="line"> * <span class="doctag">@param</span> dy</div><div class="line"> * <span class="doctag">@return</span></div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> isCanDrag(<span class="keyword">float</span> dx,<span class="keyword">float</span> dy)&#123;</div><div class="line">    <span class="keyword">return</span> Math.sqrt((dx * dx) + (dy * dy)) &lt;= mTouchSlop;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过上述的代码可以进行图像的放大缩小,并移动图像选取用户感兴趣的区域.</p>
+<h4 id="3-3-双击图片变大并实现图像截取"><a href="#3-3-双击图片变大并实现图像截取" class="headerlink" title="3.3 双击图片变大并实现图像截取"></a>3.3 双击图片变大并实现图像截取</h4><p>在平时使用时,也会出现需要图片一瞬间变大变小的功能,在这里本控件也添加以双击图片变大的功能,放大范围分为3种:1)当前缩放比例在2以下的,双击后缩放至2倍大小;2)当前缩放比例大于2,双击后缩放至4倍大小;3)当前倍数已经为4时,则缩小到最初原始的大小并移动至屏幕的中心.<br>需要捕获控件的双击事件,则需要使用GestureDetector设置监听事件,我们这里只使用onDoubleTap这个回调方法,所以使用内部类SimpleOnGestureListener.<br>还有一个问题,如果在双击控件之后图片突然放大到某一倍数,会给用户一种不好的体验,所以在这里需要使用一个渐变缩放的过程,使用postDelayed执行一个Runnable线程,在线程中再根据当前的缩放值进行渐进缩放.<br>我们在构造函数中完成对GestureDetector的初始化,具体为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">RectOrCircleImageView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">     <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line">     <span class="keyword">super</span>.setScaleType(ScaleType.MATRIX);<span class="comment">//缩放模式为矩阵,之后会用到</span></div><div class="line">     mScaleGestureDetector = <span class="keyword">new</span> ScaleGestureDetector(context,<span class="keyword">this</span>);<span class="comment">//手势</span></div><div class="line">     <span class="keyword">this</span>.setBackgroundColor(Color.BLACK);</div><div class="line">     <span class="comment">/**</span></div><div class="line">      * 给手势添加双击监听事件</div><div class="line">      */</div><div class="line">     mGestureDetector = <span class="keyword">new</span> GestureDetector(context, <span class="keyword">new</span> GestureDetector.SimpleOnGestureListener() &#123;</div><div class="line">         <span class="meta">@Override</span></div><div class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDoubleTap</span><span class="params">(MotionEvent e)</span> </span>&#123;</div><div class="line">           <span class="comment">//正在自动缩放,则不处理这次双击</span></div><div class="line">             <span class="keyword">if</span>(isAutoScale)</div><div class="line">                 <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">             <span class="comment">//事件点击位置</span></div><div class="line">             <span class="keyword">float</span> x = e.getX();</div><div class="line">             <span class="keyword">float</span> y = e.getY();</div><div class="line">             <span class="comment">//小于2.0f，放大至2倍</span></div><div class="line">             <span class="comment">//Log.e("DoubleTap", getScale() + " , " + mScale);</span></div><div class="line">             <span class="keyword">if</span>(getScale() &lt; SCALE_MID)&#123;</div><div class="line">                 RectOrCircleImageView.<span class="keyword">this</span>.postDelayed(<span class="keyword">new</span> AutoScaleThread(x,y,SCALE_MID),<span class="number">16</span>);</div><div class="line">                 isAutoScale = <span class="keyword">true</span>;</div><div class="line">             &#125;</div><div class="line">             <span class="comment">//2.0f~4.0f</span></div><div class="line">             <span class="keyword">else</span> <span class="keyword">if</span>(getScale() &gt;= SCALE_MID &amp;&amp; getScale() &lt; SCALE_MAX)&#123;</div><div class="line">                 RectOrCircleImageView.<span class="keyword">this</span>.postDelayed(<span class="keyword">new</span> AutoScaleThread(x,y,SCALE_MAX),<span class="number">16</span>);</div><div class="line">                 isAutoScale = <span class="keyword">true</span>;</div><div class="line">             &#125;<span class="keyword">else</span>&#123;</div><div class="line">                 RectOrCircleImageView.<span class="keyword">this</span>.postDelayed(<span class="keyword">new</span> AutoScaleThread(x,y,mScale),<span class="number">16</span>);</div><div class="line">                 isAutoScale = <span class="keyword">true</span>;</div><div class="line">             &#125;</div><div class="line">             <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">         &#125;</div><div class="line">     &#125;);</div><div class="line">     <span class="comment">//省略代码</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 缩放延迟线程（动画过度）</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoScaleThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> BIGGER = <span class="number">1.07f</span>;<span class="comment">//每次放大的一个比例</span></div><div class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> SMALLER = <span class="number">0.93f</span>;<span class="comment">//缩小</span></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 缩放的位置坐标</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> x;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> y;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> mTargetScale;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">float</span> tmpScale;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutoScaleThread</span><span class="params">(<span class="keyword">float</span> x,<span class="keyword">float</span> y,<span class="keyword">float</span> scale)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.x = x;</div><div class="line">        <span class="keyword">this</span>.y = y;</div><div class="line">        <span class="keyword">this</span>.mTargetScale = scale;</div><div class="line"></div><div class="line">        <span class="comment">//当前应该缩小还是放大</span></div><div class="line">        <span class="keyword">if</span>(getScale() &lt; mTargetScale)&#123;<span class="comment">//当前值小于mTargetScale</span></div><div class="line">            tmpScale = BIGGER;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            tmpScale = SMALLER;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 传入目标缩放值，根据目标值与当前值，判断应该放大还是缩小</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//每次都是以tmpScale与目标缩放值之间的比例进行缩放，每次放大一点</span></div><div class="line">        mScaleMatrix.postScale(tmpScale,tmpScale,x,y);</div><div class="line">        checkBorderAndCenterWhenScale();</div><div class="line">        setImageMatrix(mScaleMatrix);</div><div class="line">        <span class="comment">//缩放之后的scale是否合法</span></div><div class="line">        <span class="keyword">final</span> <span class="keyword">float</span> currentScale = getScale();</div><div class="line">        Log.d(<span class="string">"AutoTrhead"</span>,<span class="string">"currentScale："</span> + currentScale);</div><div class="line">        <span class="keyword">if</span>( ((currentScale &lt; mTargetScale) &amp;&amp; (tmpScale &gt;<span class="number">1.0f</span>)) ||</div><div class="line">                ((currentScale &gt; mTargetScale) &amp;&amp; ( tmpScale &lt; <span class="number">1.0f</span>)))&#123;</div><div class="line">            RectOrCircleImageView.<span class="keyword">this</span>.postDelayed(<span class="keyword">this</span>,<span class="number">16</span>);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">//这时比例已经超出目标scale了,需要还原</span></div><div class="line">            <span class="keyword">final</span> <span class="keyword">float</span> deltaScale = mTargetScale / currentScale;</div><div class="line">            mScaleMatrix.postScale(deltaScale,deltaScale,x,y);</div><div class="line">            checkBorderAndCenterWhenScale();</div><div class="line">            setImageMatrix(mScaleMatrix);</div><div class="line">            isAutoScale = <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>具体的步骤在注释中已经详细写出,通过上面的代码,可以完成图片的双击放大缩小.到了基本的功能已经完成,还有一个给外部的截图方法.<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 按照当前的位置剪切头像</div><div class="line">* @return</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> Bitmap clipBitmap()&#123;</div><div class="line">   Bitmap bitmap = Bitmap.createBitmap(getWidth(),getHeight(), Bitmap.Config.ARGB_8888);</div><div class="line">   Canvas canvas = <span class="keyword">new</span> Canvas(bitmap);</div><div class="line">   <span class="comment">//将屏幕上的图像绘制到当前canvas上</span></div><div class="line">   <span class="title">draw</span>(canvas);</div><div class="line">   <span class="keyword">if</span>(getmType() == TYPE.RECT)&#123;</div><div class="line">       <span class="comment">//按照中间截图去的大小创建图像</span></div><div class="line">       <span class="keyword">return</span> Bitmap.createBitmap(bitmap,mHorizontalPadding,mVerticalPadding,</div><div class="line">               getWidth() - <span class="number">2</span> * mHorizontalPadding,getHeight() - <span class="number">2</span> * mVerticalPadding);</div><div class="line">   &#125;<span class="keyword">else</span> <span class="keyword">if</span>(getmType() == TYPE.CIRCLE)&#123;</div><div class="line">       <span class="keyword">return</span> getCircleBitmap(Bitmap.createBitmap(bitmap,mHorizontalPadding,mVerticalPadding,</div><div class="line">               getWidth() - <span class="number">2</span> * mHorizontalPadding,getHeight() - <span class="number">2</span> * mVerticalPadding));</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line">* 头像为圆形时,在矩形区域的基础之上剪切</div><div class="line">* @return</div><div class="line">*/</div><div class="line"><span class="keyword">private</span> Bitmap getCircleBitmap(Bitmap bitmap)&#123;</div><div class="line">   Bitmap outBmp = Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(), Bitmap.Config.ARGB_8888);</div><div class="line">   Canvas canvas = <span class="keyword">new</span> Canvas(outBmp);</div><div class="line">   <span class="keyword">final</span> <span class="built_in">int</span> <span class="built_in">color</span> = <span class="number">0xff424242</span>;</div><div class="line">   <span class="keyword">final</span> Rect <span class="built_in">rect</span> = <span class="keyword">new</span> Rect(<span class="number">0</span>, <span class="number">0</span>, bitmap.getWidth(), bitmap.getHeight());</div><div class="line">   Paint paint = <span class="keyword">new</span> Paint();</div><div class="line">   paint.setAntiAlias(<span class="keyword">true</span>);</div><div class="line">   canvas.drawARGB(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">   paint.setColor(<span class="built_in">color</span>);</div><div class="line">   <span class="built_in">int</span> x = bitmap.getWidth();</div><div class="line">   canvas.drawCircle(x / <span class="number">2</span>,x / <span class="number">2</span>,x / <span class="number">2</span>,paint);</div><div class="line">   paint.setXfermode(<span class="keyword">new</span> PorterDuffXfermode(PorterDuff.Mode.SRC_IN));</div><div class="line">   canvas.drawBitmap(bitmap,<span class="built_in">rect</span>,<span class="built_in">rect</span>,paint);</div><div class="line">   <span class="keyword">return</span> outBmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>根据当前设置的截图区域选择不同的截图方法,但是要实现我们刚开始的效果图,还需要进一步的包装.<br>在该控件的上面还有一个文本“截图”,这个用于触发截图方法.我们这里继承RelativeLayout布局,将本文的控件和这个截图文本包装在一起,具体为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 包装RectOrCircleImageView</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RectOrCircleLayout</span> <span class="keyword">extends</span> <span class="title">RelativeLayout</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> RectOrCircleImageView mRectOrCircleImageView;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RectOrCircleLayout</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context,<span class="keyword">null</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RectOrCircleLayout</span><span class="params">(Context context, AttributeSet attrs)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, attrs,<span class="number">0</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RectOrCircleLayout</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyleAttr)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(context, attrs, defStyleAttr);</div><div class="line"></div><div class="line">        RelativeLayout.LayoutParams relParams = <span class="keyword">new</span> RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,</div><div class="line">                LayoutParams.MATCH_PARENT);</div><div class="line">        <span class="comment">//将控件添加到布局中</span></div><div class="line">        mRectOrCircleImageView = <span class="keyword">new</span> RectOrCircleImageView(context);</div><div class="line">        <span class="keyword">this</span>.addView(mRectOrCircleImageView,<span class="number">0</span>,relParams);</div><div class="line">        <span class="comment">//按钮</span></div><div class="line">        LinearLayout mLinear = <span class="keyword">new</span> LinearLayout(context);</div><div class="line">        LinearLayout.LayoutParams params = <span class="keyword">new</span> LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,</div><div class="line">                LinearLayout.LayoutParams.WRAP_CONTENT);</div><div class="line">        params.setMargins(<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>);</div><div class="line">        mLinear.setOrientation(LinearLayout.HORIZONTAL);</div><div class="line">        mLinear.setLayoutParams(params);</div><div class="line">        <span class="keyword">final</span> TextView txtClip = <span class="keyword">new</span> Button(context);</div><div class="line">        txtClip.setText(<span class="string">"剪切"</span>);</div><div class="line">        txtClip.setBackgroundColor(Color.parseColor(<span class="string">"#00000000"</span>));</div><div class="line">        txtClip.setTextColor(Color.WHITE);</div><div class="line">        mLinear.setBackgroundColor(Color.parseColor(<span class="string">"#60424348"</span>));</div><div class="line">        mLinear.addView(txtClip);</div><div class="line">        <span class="comment">//将“剪切”按钮添加到布局中</span></div><div class="line">        relParams = <span class="keyword">new</span> RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,</div><div class="line">                RelativeLayout.LayoutParams.WRAP_CONTENT);</div><div class="line">        relParams.addRule(RelativeLayout.BELOW,mRectOrCircleImageView.getId());</div><div class="line">        <span class="keyword">this</span>.addView(mLinear,<span class="number">1</span>,relParams);</div><div class="line">        <span class="comment">//实现接口,回调</span></div><div class="line">        txtClip.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                onClipBitmapListener.onClipBitmap();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>并且在RectOrCircleLayout中为了用户为RectOrCircleImageView添加图片、设置截图区域类型以及截图方法,添加了几个方法：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">  * 为控件设置图片</div><div class="line">  * @param drawable</div><div class="line">  */</div><div class="line"> <span class="selector-tag">public</span> <span class="selector-tag">void</span>  <span class="selector-tag">setImgDrawable</span>(Drawable drawable)&#123;</div><div class="line">     mRectOrCircleImageView<span class="selector-class">.setImageDrawable</span>(drawable);</div><div class="line"> &#125;</div><div class="line"> <span class="selector-tag">public</span> <span class="selector-tag">void</span> <span class="selector-tag">setImgDrawable</span>(Bitmap bitmap)&#123;</div><div class="line">     mRectOrCircleImageView<span class="selector-class">.setImageBitmap</span>(bitmap);</div><div class="line"> &#125;</div><div class="line"> <span class="selector-tag">public</span> <span class="selector-tag">void</span> <span class="selector-tag">setImgDrawable</span>(int resId)&#123;</div><div class="line">     mRectOrCircleImageView<span class="selector-class">.setImageResource</span>(resId);</div><div class="line"> &#125;</div><div class="line"> <span class="selector-tag">public</span> <span class="selector-tag">void</span> <span class="selector-tag">setmType</span>(RectOrCircleImageView.TYPE mType) &#123;</div><div class="line">     mRectOrCircleImageView<span class="selector-class">.setmType</span>(mType);</div><div class="line"> &#125;</div><div class="line"> <span class="comment">//截图方法</span></div><div class="line"> <span class="selector-tag">public</span> <span class="selector-tag">Bitmap</span> <span class="selector-tag">clipBitmap</span>()&#123;</div><div class="line">    return mRectOrCircleImageView<span class="selector-class">.clipBitmap</span>();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要得到截取到的图像,在控件中一个回调接口实现,并让“截图”按钮实现这个接口.<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 回调接口</div><div class="line"> */</div><div class="line">OnClipBitmapListener onClipBitmapListener;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnClipBitmapListener</span>(<span class="params">OnClipBitmapListener listener</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.onClipBitmapListener = listener;</div><div class="line">&#125;</div><div class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">OnClipBitmapListener</span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onClipBitmap</span>(<span class="params"></span>)</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="4、使用实例"><a href="#4、使用实例" class="headerlink" title="4、使用实例"></a>4、使用实例</h3><p>在布局文件中,添加控件.<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;com.lhqj.<span class="type">ClipImgView</span>.<span class="type">RectOrCircleLayout</span></div><div class="line">     android:id=<span class="string">"@+id/id_ClipView"</span></div><div class="line">     android:layout_width=<span class="string">"match_parent"</span></div><div class="line">     android:layout_height=<span class="string">"match_parent"</span>/&gt;</div><div class="line"></div><div class="line"><span class="comment">//实现接口OnClipBitmapListener</span></div><div class="line">public <span class="class"><span class="keyword">class</span> <span class="title">LayerListActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="title">implements</span> <span class="title">RectOrCircleLayout</span>.<span class="title">OnClipBitmapListener</span></span>&#123;</div><div class="line"></div><div class="line">   <span class="keyword">private</span> <span class="type">ImageView</span> mImageView;</div><div class="line">   <span class="type">RectOrCircleLayout</span> rectOrCircleLayout;</div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="keyword">protected</span> void onCreate(<span class="type">Bundle</span> savedInstanceState) &#123;</div><div class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">       setContentView(<span class="type">R</span>.layout.drawable_layout);</div><div class="line">       <span class="keyword">this</span>.rectOrCircleLayout = (<span class="type">RectOrCircleLayout</span>) findViewById(<span class="type">R</span>.id.id_layout);</div><div class="line">       rectOrCircleLayout.setmType(<span class="type">RectOrCircleImageView</span>.<span class="type">TYPE</span>.<span class="type">RECT</span>);</div><div class="line">       rectOrCircleLayout.setImgDrawable(<span class="type">BitmapFactory</span>.decodeResource(getResources(),<span class="type">R</span>.mipmap.gril2));</div><div class="line">       rectOrCircleLayout.setOnClipBitmapListener(<span class="keyword">this</span>);</div><div class="line">       <span class="keyword">this</span>.mImageView = (<span class="type">ImageView</span>) findViewById(<span class="type">R</span>.id.id_clipImgView);</div><div class="line">   &#125;</div><div class="line">   <span class="comment">//回调方法,得到截图</span></div><div class="line">   <span class="meta">@Override</span></div><div class="line">   public void onClipBitmap() &#123;</div><div class="line">       <span class="type">Bitmap</span> m = rectOrCircleLayout.clipBitmap();</div><div class="line">       <span class="keyword">if</span>(m!=<span class="literal">null</span>)&#123;</div><div class="line">           mImageView.setImageBitmap(m);</div><div class="line">           mImageView.setVisibility(<span class="type">View</span>.<span class="type">VISIBLE</span>);</div><div class="line">           rectOrCircleLayout.setVisibility(<span class="type">View</span>.<span class="type">INVISIBLE</span>);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/06/注解（Annotation）/" rel="next" title="Java注解学习">
+                <i class="fa fa-chevron-left"></i> Java注解学习
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Fox-Legend" />
+          <p class="site-author-name" itemprop="name">Fox-Legend</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Fox-Legend" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/QJlinghu" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yosef-gao.github.io/index.html" title="yosef-gao" target="_blank">yosef-gao</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、引言"><span class="nav-number">1.</span> <span class="nav-text">1、引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、功能分析"><span class="nav-number">2.</span> <span class="nav-text">2、功能分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、RectOrCircleImageView实现"><span class="nav-number">3.</span> <span class="nav-text">3、RectOrCircleImageView实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-矩形头像截图设计"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 矩形头像截图设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-圆形头像截图设计"><span class="nav-number">3.2.</span> <span class="nav-text">3.2  圆形头像截图设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-双击图片变大并实现图像截取"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 双击图片变大并实现图像截取</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、使用实例"><span class="nav-number">4.</span> <span class="nav-text">4、使用实例</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fox-Legend</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1bB4GpXl0cIhG0yvn0c41SIi-gzGzoHsz", "8MpzaQJDbI6URX2jlon3fdUq");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
