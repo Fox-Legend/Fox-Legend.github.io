@@ -1,0 +1,771 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="天气预报," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="三、天气预报App基本功能实现天气预报主要功能就是根据城市的代码，去动态获取当前的天气情况，并且将当前的选择的城市天气信息保存下来（Sharedpreferences）.1、获取JSon天气数据2、根据android基础学习综合实例——天气预报App中分析的城市代码以及天气代码，保存到数据库中，再根据用户所选择的城市代码，获取对应的天气信息3、特别注意，因为白天已经过去 ,预报在晚上那次更新的时候">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天气预报App--基本功能实现">
+<meta property="og:url" content="http://yoursite.com/2016/05/22/android基础学习综合实例——天气预报App（基本功能实现）/index.html">
+<meta property="og:site_name" content="Fox-Legend">
+<meta property="og:description" content="三、天气预报App基本功能实现天气预报主要功能就是根据城市的代码，去动态获取当前的天气情况，并且将当前的选择的城市天气信息保存下来（Sharedpreferences）.1、获取JSon天气数据2、根据android基础学习综合实例——天气预报App中分析的城市代码以及天气代码，保存到数据库中，再根据用户所选择的城市代码，获取对应的天气信息3、特别注意，因为白天已经过去 ,预报在晚上那次更新的时候">
+<meta property="og:updated_time" content="2016-07-11T04:03:36.657Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="天气预报App--基本功能实现">
+<meta name="twitter:description" content="三、天气预报App基本功能实现天气预报主要功能就是根据城市的代码，去动态获取当前的天气情况，并且将当前的选择的城市天气信息保存下来（Sharedpreferences）.1、获取JSon天气数据2、根据android基础学习综合实例——天气预报App中分析的城市代码以及天气代码，保存到数据库中，再根据用户所选择的城市代码，获取对应的天气信息3、特别注意，因为白天已经过去 ,预报在晚上那次更新的时候">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/05/22/android基础学习综合实例——天气预报App（基本功能实现）/"/>
+
+  <title> 天气预报App--基本功能实现 | Fox-Legend </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Fox-Legend</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">To stand in the spotlight of life, one must have experience in the shadows of setbacks.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                天气预报App--基本功能实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-22T15:59:47+08:00" content="2016-05-22">
+              2016-05-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/22/android基础学习综合实例——天气预报App（基本功能实现）/" class="leancloud_visitors" data-flag-title="天气预报App--基本功能实现">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>三、天气预报App基本功能实现<br>天气预报主要功能就是根据城市的代码，去动态获取当前的天气情况，并且将当前的选择的城市天气信息保存下来（Sharedpreferences）.<br>1、获取JSon天气数据<br>2、根据<a href="http://blog.csdn.net/lhqj1992/article/details/50571026" target="_blank" rel="external">android基础学习综合实例——天气预报App</a>中分析的城市代码以及天气代码，保存到数据库中，再根据用户所选择的城市代码，获取对应的天气信息<br>3、特别注意，因为白天已经过去 ,预报在晚上那次更新的时候白天数据就会为空，即中国气象局的数据在晚上6点以后不会再更新白天的数据信息，在App中必须保存白天的天气信息。<br><a id="more"></a><br>3.1 城市代码数据库建立<br>(1)省份Province代码数据库：包括省份名称和代码<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">private static final String CREATE_PROVINCE = "<span class="keyword">create</span> <span class="keyword">table</span> Province (<span class="string">"</span></div><div class="line">			+ "<span class="keyword">id</span> <span class="built_in">integer</span> primary <span class="keyword">key</span> autoincrement, <span class="string">"</span></div><div class="line">			+ "province_name <span class="built_in">text</span>, <span class="string">"</span></div><div class="line">			+ "province_code <span class="built_in">text</span>)<span class="string">";</span></div></pre></td></tr></table></figure></p>
+<p>添加对应的数据库操作<br>1)保存省份实例到数据库中<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public void saveProvince(Province province)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (province != null)</div><div class="line">	&#123;</div><div class="line">		ContentValues <span class="built_in">values</span> = <span class="built_in">new</span> ContentValues();</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"province_name"</span>, province.getProvinceName());</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"province_code"</span>, province.getProvinceCode());</div><div class="line">		db.insert(<span class="string">"Province"</span>, null, <span class="built_in">values</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2.在数据库中读取全国的所有省份</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> List&lt;Province&gt; loadProvices()</div><div class="line">&#123;</div><div class="line"></div><div class="line">	List&lt;Province&gt; list = <span class="keyword">new</span> ArrayList&lt;Province&gt;();</div><div class="line">	Cursor <span class="built_in">cursor</span> = db</div><div class="line">	.query(<span class="string">"Province"</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">	<span class="keyword">if</span> (<span class="built_in">cursor</span>.moveToFirst())</div><div class="line">	&#123;</div><div class="line">		do</div><div class="line">		&#123;</div><div class="line">			Province province = <span class="keyword">new</span> Province();	       province.setId(<span class="built_in">cursor</span>.getInt(<span class="built_in">cursor</span>.getColumnIndex(<span class="string">"id"</span>)));</div><div class="line">province.setProvinceName(<span class="built_in">cursor</span>.getString(<span class="built_in">cursor</span></div><div class="line">					.getColumnIndex(<span class="string">"province_name"</span>)));</div><div class="line">			province.setProvinceCode(<span class="built_in">cursor</span>.getString(<span class="built_in">cursor</span></div><div class="line">					.getColumnIndex(<span class="string">"province_code"</span>)));</div><div class="line">			list.<span class="built_in">add</span>(province);</div><div class="line">		&#125; <span class="keyword">while</span> (<span class="built_in">cursor</span>.moveToNext());</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> list;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>（2）市级City代码数据库表建立</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">private static final String CREATE_CITY = "<span class="keyword">create</span> <span class="keyword">table</span> City (<span class="string">"</span></div><div class="line">			+ "<span class="keyword">id</span> <span class="built_in">integer</span> primary <span class="keyword">key</span> autoincrement, <span class="string">"</span></div><div class="line">			+ "city_name <span class="built_in">text</span>, <span class="string">"</span></div><div class="line">			+ "city_code <span class="built_in">text</span>, <span class="string">"</span></div><div class="line">			+ "province_id <span class="built_in">integer</span>)<span class="string">";</span></div></pre></td></tr></table></figure>
+<p>1.保存City信息到数据库中</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public void saveCity(City city)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (city != null)</div><div class="line">	&#123;</div><div class="line">		ContentValues <span class="built_in">values</span> = <span class="built_in">new</span> ContentValues();</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"city_name"</span>, city.getCityName());</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"city_code"</span>, city.getCityCode());</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"province_id"</span>, city.getProvinceId());</div><div class="line">		db.insert(<span class="string">"City"</span>, null, <span class="built_in">values</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.根据用户所选的省份id，在数据库中读取对应的市级城市数据</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> List&lt;City&gt; loadCity(<span class="built_in">int</span> provinceId)</div><div class="line">&#123;</div><div class="line">	List&lt;City&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">	Cursor <span class="built_in">cursor</span> = db.query(<span class="string">"City"</span>, <span class="keyword">null</span>, <span class="string">"province_id = ?"</span>, <span class="keyword">new</span> <span class="keyword">String</span>[]</div><div class="line">	&#123; <span class="keyword">String</span>.valueOf(provinceId) &#125;, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">	<span class="keyword">if</span> (<span class="built_in">cursor</span>.moveToFirst())</div><div class="line">	&#123;</div><div class="line">		do</div><div class="line">		&#123;</div><div class="line">			City city = <span class="keyword">new</span> City();</div><div class="line">			city.setId(<span class="built_in">cursor</span>.getInt(<span class="built_in">cursor</span>.getColumnIndex(<span class="string">"id"</span>)));</div><div class="line">			city.setCityName(<span class="built_in">cursor</span>.getString(<span class="built_in">cursor</span></div><div class="line">					.getColumnIndex(<span class="string">"city_name"</span>)));</div><div class="line">			city.setCityCode(<span class="built_in">cursor</span>.getString(<span class="built_in">cursor</span></div><div class="line">					.getColumnIndex(<span class="string">"city_code"</span>)));</div><div class="line">			city.setProvinceId(provinceId);</div><div class="line">			list.<span class="built_in">add</span>(city);</div><div class="line">		&#125; <span class="keyword">while</span> (<span class="built_in">cursor</span>.moveToNext());</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> list;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>（3）县级County城市代码数据库建立</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">private static final String CREATE_COUNTY = "<span class="keyword">create</span> <span class="keyword">table</span> County (<span class="string">"</span></div><div class="line">			+ "<span class="keyword">id</span> <span class="built_in">integer</span> primary <span class="keyword">key</span> autoincrement, <span class="string">"</span></div><div class="line">			+ "county_name <span class="built_in">text</span>, <span class="string">"</span></div><div class="line">			+ "county_code <span class="built_in">text</span>, <span class="string">"</span></div><div class="line">			+ "city_id <span class="built_in">integer</span>)<span class="string">";</span></div></pre></td></tr></table></figure>
+<p>1.保存County信息到数据库中</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void saveCounty(County county)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span> (county != null)</div><div class="line">	&#123;</div><div class="line">		ContentValues <span class="built_in">values</span> = <span class="built_in">new</span> ContentValues();</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"county_name"</span>, county.getCountyName());</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"county_code"</span>, county.getCountyCode());</div><div class="line">		<span class="built_in">values</span>.<span class="built_in">put</span>(<span class="string">"city_id"</span>, county.getCityId());</div><div class="line">		db.insert(<span class="string">"County"</span>, null, <span class="built_in">values</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.根据City的id在数据中获取对应的县城数据</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> List&lt;County&gt; loadCounties(<span class="built_in">int</span> cityId)</div><div class="line">&#123;</div><div class="line">	List&lt;County&gt; list = <span class="keyword">new</span> ArrayList&lt;County&gt;();</div><div class="line">	Cursor <span class="built_in">cursor</span> = db.query(<span class="string">"County"</span>, <span class="keyword">null</span>, <span class="string">"city_id = ?"</span>, <span class="keyword">new</span> <span class="keyword">String</span>[]</div><div class="line">	&#123; <span class="keyword">String</span>.valueOf(cityId) &#125;, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</div><div class="line">	<span class="keyword">if</span> (<span class="built_in">cursor</span>.moveToFirst())</div><div class="line">	&#123;</div><div class="line">		do</div><div class="line">		&#123;</div><div class="line">			County county = <span class="keyword">new</span> County();</div><div class="line">			county.setCityId(<span class="built_in">cursor</span>.getInt(<span class="built_in">cursor</span>.getColumnIndex(<span class="string">"id"</span>)));</div><div class="line">			county.setCountyName(<span class="built_in">cursor</span>.getString(<span class="built_in">cursor</span></div><div class="line">					.getColumnIndex(<span class="string">"county_name"</span>)));</div><div class="line">			county.setCountyCode(<span class="built_in">cursor</span>.getString(<span class="built_in">cursor</span></div><div class="line">					.getColumnIndex(<span class="string">"county_code"</span>)));</div><div class="line">			county.setCityId(cityId);</div><div class="line">			list.<span class="built_in">add</span>(county);</div><div class="line"></div><div class="line">		&#125; <span class="keyword">while</span> (<span class="built_in">cursor</span>.moveToNext());</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> list;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3.2 根据城市代码在线获取城市的天气信息<br>因为中国气象局返回的数据是JSon格式的，所以我们通过解析JSon格式的数据，获得对应的天气信息。</p>
+<p>（1）根据城市代码在线获取天气JSon数据</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">public</span> <span class="selector-tag">static</span> <span class="selector-tag">void</span> <span class="selector-tag">sendHttpRequest</span>(final String address,</div><div class="line">			final HttpCallbackListener listener)</div><div class="line">&#123;</div><div class="line">	<span class="selector-tag">new</span> <span class="selector-tag">Thread</span>(new Runnable()</div><div class="line">	&#123;</div><div class="line">		<span class="variable">@Override</span></div><div class="line">		public void run()</div><div class="line">		&#123;</div><div class="line">			HttpURLConnection connection = null;</div><div class="line">			URL url;</div><div class="line">			<span class="selector-tag">try</span></div><div class="line">			&#123;</div><div class="line">				url = new URL(address);</div><div class="line">				connection = (HttpURLConnection) url<span class="selector-class">.openConnection</span>();</div><div class="line">				connection<span class="selector-class">.setRequestMethod</span>(<span class="string">"GET"</span>);</div><div class="line">				connection<span class="selector-class">.setConnectTimeout</span>(<span class="number">8000</span>);</div><div class="line">				connection<span class="selector-class">.setReadTimeout</span>(<span class="number">8000</span>);</div><div class="line">				InputStream in = connection<span class="selector-class">.getInputStream</span>();</div><div class="line">				BufferedReader reader = new BufferedReader(</div><div class="line">						new InputStreamReader(in,"UTF-8"));<span class="comment">//这里用UTF-8是为了防止获取得到的JSON数据中出现中文而导致乱码</span></div><div class="line">				StringBuilder response = new StringBuilder();</div><div class="line">				String line;</div><div class="line">				<span class="selector-tag">while</span> ((line = reader.readLine()) != null)</div><div class="line">				&#123;</div><div class="line">					response<span class="selector-class">.append</span>(line);</div><div class="line">				&#125;</div><div class="line">				if (listener != null)</div><div class="line">				&#123;</div><div class="line">					<span class="comment">// 回调onFinish()方法</span></div><div class="line">				listener<span class="selector-class">.onFinish</span>(response.toString());</div><div class="line">				&#125;</div><div class="line">				in.close();</div><div class="line">			&#125; catch (Exception e)</div><div class="line">			&#123;</div><div class="line">				<span class="selector-tag">if</span> (listener != null) &#123;</div><div class="line">					<span class="comment">// 回调onError()方法</span></div><div class="line">					listener<span class="selector-class">.onError</span>(e);</div><div class="line">				&#125;</div><div class="line">			&#125; finally&#123;</div><div class="line">				<span class="selector-tag">if</span>(connection != null)&#123;</div><div class="line">					connection<span class="selector-class">.disconnect</span>();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;)<span class="selector-class">.start</span>();</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中listener是自定义的一个回调接口，通过回调接口可方便获得返回的天气信息response<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">HttpCallbackListener</span></div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">onFinish</span>(<span class="params">String response</span>)</span>;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">onError</span>(<span class="params">Exception e</span>)</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上都是基本准备工作，本APP中主要包括2个Activity：ChooseAreaAcitvity和WeatherActivity。<br>3.3 ChooseAreaActivity：通过读取Excel获取城市的代码以及名称并显示</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">String</span> loadProvincesInfo(Context context,<span class="keyword">String</span> xlsPath) <span class="keyword">throws</span> IOException</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>(xlsPath.equals(<span class="string">"Area_Excel"</span>))&#123;</div><div class="line">		StringBuilder provinceInfo= <span class="keyword">new</span> StringBuilder();</div><div class="line">		<span class="keyword">try</span>&#123;</div><div class="line"></div><div class="line">			InputStream is = context.getAssets().<span class="built_in">open</span>(<span class="string">"areaid_v.xls"</span>);</div><div class="line">			<span class="comment">//ileInputStream fileIn = new FileInputStream(xlsPath);</span></div><div class="line">			<span class="comment">// 根据指定的文件输入流导入Excel从而产生Workbook对象</span></div><div class="line">			HSSFWorkbook wb0 = <span class="keyword">new</span> HSSFWorkbook(is);</div><div class="line">			<span class="comment">// 获取Excel文档中的第一个表单</span></div><div class="line">			HSSFSheet hssfSheet = wb0.getSheetAt(<span class="number">0</span>);</div><div class="line">			<span class="comment">// 对Sheet中的每一行进行迭代</span></div><div class="line">			<span class="keyword">for</span> (<span class="built_in">int</span> rowNum = <span class="number">1</span>; rowNum &lt;= hssfSheet.getLastRowNum(); rowNum++)</div><div class="line">			&#123;</div><div class="line"></div><div class="line">				HSSFRow hssfRow = hssfSheet.getRow(rowNum);</div><div class="line">				<span class="comment">// 如果当前行的行号（从0开始）未达到2（第三行）则从新循环</span></div><div class="line">				<span class="keyword">if</span> (hssfRow != <span class="keyword">null</span>)</div><div class="line">				&#123;</div><div class="line">					<span class="comment">// 创建实体类</span></div><div class="line">					HSSFCell no = hssfRow.getCell(<span class="number">0</span>);</div><div class="line">					HSSFCell proname = hssfRow.getCell(<span class="number">6</span>);</div><div class="line">					HSSFCell cityname = hssfRow.getCell(<span class="number">4</span>);</div><div class="line">					HSSFCell countyname = hssfRow.getCell(<span class="number">2</span>);</div><div class="line">					<span class="comment">/*</span></div><div class="line">					 * String subNo = getValue(no).substring(3, 5);//[3,5)</div><div class="line">					 */</div><div class="line">					<span class="comment">//返回一行中的省市县的名称已经整个Number</span></div><div class="line">					<span class="keyword">String</span> info = getValue(no) + <span class="string">"|"</span> + getValue(proname) + <span class="string">"|"</span></div><div class="line">							+ getValue(cityname) + <span class="string">"|"</span> + getValue(countyname) + <span class="string">","</span>;</div><div class="line">					provinceInfo.<span class="built_in">append</span>(info);</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">			<span class="comment">/*fileIn.close();*/</span></div><div class="line">			is.close();</div><div class="line">			<span class="keyword">return</span> provinceInfo.toString();</div><div class="line"></div><div class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</div><div class="line">			Log.d(<span class="string">"TAG"</span>, <span class="string">"加载excel文件出错"</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> provinceInfo.toString();</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		Log.d(<span class="string">"TAG"</span>, <span class="string">"加载excel类型出错，应该为地区类型"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/天气预报/" rel="tag">#天气预报</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/18/Android-Studio-开发小技巧/" rel="next" title="Android Studio 开发小技巧">
+                <i class="fa fa-chevron-left"></i> Android Studio 开发小技巧
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/22/SIFT/" rel="prev" title="SIFT算法">
+                SIFT算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Fox-Legend" />
+          <p class="site-author-name" itemprop="name">Fox-Legend</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Fox-Legend" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/QJlinghu" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yosef-gao.github.io/index.html" title="yosef-gao" target="_blank">yosef-gao</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fox-Legend</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1bB4GpXl0cIhG0yvn0c41SIi-gzGzoHsz", "8MpzaQJDbI6URX2jlon3fdUq");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

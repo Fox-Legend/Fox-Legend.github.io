@@ -245,8 +245,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/27/Spring/" itemprop="url">
-                  Spring 框架基础学习
+                <a class="post-title-link" href="/2016/05/22/android基础学习综合实例——天气预报App（基本功能实现）/" itemprop="url">
+                  天气预报App--基本功能实现
                 </a>
               
             
@@ -259,132 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-27T13:29:13+08:00" content="2016-06-27">
-              2016-06-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/06/27/Spring/" class="leancloud_visitors" data-flag-title="Spring 框架基础学习">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1、Modules"><a href="#1、Modules" class="headerlink" title="1、Modules"></a>1、Modules</h3><p>Spring 框架集成了20多个模块,这些模块按照各自的职责被分到Core Container(核心容器),Data Access/Integration(数据访问/集成),Web,AOP(Aspect Oriented Programming,面向切面编程),Instrumentation(工具),Messaging(消息),Test模块.如下图:<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/27/Spring/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/20/Volley-1/" itemprop="url">
-                  Volley的使用以及源码分析（二）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-20T20:01:39+08:00" content="2016-06-20">
-              2016-06-20
+            <time itemprop="dateCreated" datetime="2016-05-22T15:59:47+08:00" content="2016-05-22">
+              2016-05-22
             </time>
           </span>
 
@@ -417,7 +293,7 @@
 
           
           
-             <span id="/2016/06/20/Volley-1/" class="leancloud_visitors" data-flag-title="Volley的使用以及源码分析（二）">
+             <span id="/2016/05/22/android基础学习综合实例——天气预报App（基本功能实现）/" class="leancloud_visitors" data-flag-title="天气预报App--基本功能实现">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -440,258 +316,9 @@
 
       
         
-          <h3 id="二、Volley源码解析"><a href="#二、Volley源码解析" class="headerlink" title="二、Volley源码解析"></a>二、Volley源码解析</h3><h4 id="2-1-Volley框架结构"><a href="#2-1-Volley框架结构" class="headerlink" title="2.1 Volley框架结构"></a>2.1 Volley框架结构</h4><p>根据Volley的框架结构,在上一章可以看出所有的Request请求都是按照这个流程处理,那么我将从请求流程进行源代码分析.<br>其框架主要分为3部分：<br>(1)Main Thread中创建Request以及解析显示请求返回结果;<br>(2)Cache Thread在Cache中处理请求,若请求的内容在缓存中已存在,则从缓存中取出并返回;<br>(3)NetWork Thread,当请求在缓存中找不到时,则需要从访问网络获取数据.<br>
+          <p>三、天气预报App基本功能实现<br>天气预报主要功能就是根据城市的代码，去动态获取当前的天气情况，并且将当前的选择的城市天气信息保存下来（Sharedpreferences）.<br>1、获取JSon天气数据<br>2、根据<a href="http://blog.csdn.net/lhqj1992/article/details/50571026">android基础学习综合实例——天气预报App</a>中分析的城市代码以及天气代码，保存到数据库中，再根据用户所选择的城市代码，获取对应的天气信息<br>3、特别注意，因为白天已经过去 ,预报在晚上那次更新的时候白天数据就会为空，即中国气象局的数据在晚上6点以后不会再更新白天的数据信息，在App中必须保存白天的天气信息。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/20/Volley-1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/19/Volley/" itemprop="url">
-                  Volley的使用以及源码分析（一）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-19T16:12:38+08:00" content="2016-06-19">
-              2016-06-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/06/19/Volley/" class="leancloud_visitors" data-flag-title="Volley的使用以及源码分析（一）">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一、Volley的使用"><a href="#一、Volley的使用" class="headerlink" title="一、Volley的使用"></a>一、Volley的使用</h3><h4 id="1-1-Volley简介"><a href="#1-1-Volley简介" class="headerlink" title="1.1 Volley简介"></a>1.1 Volley简介</h4><p>Volley是Google I/O 2013发布的一款基于Android平台的网络框架,它的优点有：<br>1) 默认Android2.3及以上基于 HttpURLConnection,2.3以下基于HttpClient;<br>2) 提供了两种缓存机制：磁盘缓存和内存缓存,符合Http缓存语义的缓存机制;<br>3) 支持指定请求的优先级;<br>4) 提供多样的取消机制：特定任务取消以及多任务取消;<br>5) 提供简便的图片加载工具（ImageRequest、ImageLoader）;<br>6) 一个优秀的框架.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/19/Volley/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/17/设计模式之六大原则/" itemprop="url">
-                  设计模式之六大原则
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-17T22:24:56+08:00" content="2016-06-17">
-              2016-06-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/06/17/设计模式之六大原则/" class="leancloud_visitors" data-flag-title="设计模式之六大原则">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一、单一职责原则（Single-Responsibility-Principle-SRP）"><a href="#一、单一职责原则（Single-Responsibility-Principle-SRP）" class="headerlink" title="一、单一职责原则（Single Responsibility Principle,SRP）"></a>一、单一职责原则（Single Responsibility Principle,SRP）</h3><p>定义：指一个类或者模块应该有且只有一个改变的原因.即一个类只负责一项工作.</p>
-<h3 id="二、开闭原则（Open-Close-Principle-OCP）"><a href="#二、开闭原则（Open-Close-Principle-OCP）" class="headerlink" title="二、开闭原则（Open Close Principle,OCP）"></a>二、开闭原则（Open Close Principle,OCP）</h3><p>定义：软件中的对象（类、模板、函数等）应该对于扩展是开放的,但是对于修改是封闭的.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/17/设计模式之六大原则/#more" rel="contents">
+            <a class="btn" href="/2016/05/22/android基础学习综合实例——天气预报App（基本功能实现）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -817,6 +444,130 @@
             <h3 id="一、使用Android-Studio时需要用的功能"><a href="#一、使用Android-Studio时需要用的功能" class="headerlink" title="一、使用Android Studio时需要用的功能"></a>一、使用Android Studio时需要用的功能</h3><p>Question：在Android Studio 中怎么样获取应用的秘钥？<br>Answer：进入C:\Documents and Settings\&lt;你的用户名&gt;.android&gt;，再输入keytool -list -keystore debug.keystore，若你从未设置过秘钥库口令，则直接回车就可以得到应用的秘钥，反则输入你已经设置的秘钥库口令。</p>
 
           
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/12/CTex的基本使用方法/" itemprop="url">
+                  CTex的基本使用方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-12T15:59:47+08:00" content="2016-05-12">
+              2016-05-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/杂烩学习/" itemprop="url" rel="index">
+                    <span itemprop="name">杂烩学习</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/12/CTex的基本使用方法/" class="leancloud_visitors" data-flag-title="CTex的基本使用方法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          写好论文必备利器，本文简单介绍怎么使用CTex,学会之后再也不怕格式不对了
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/12/CTex的基本使用方法/">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1215,6 +966,130 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/02/PS将psd中的android小图标单个保存为png图标/" itemprop="url">
+                  PS将psd中的android小图标单个保存为png图标
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-02T22:03:38+08:00" content="2016-04-02">
+              2016-04-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/杂烩学习/" itemprop="url" rel="index">
+                    <span itemprop="name">杂烩学习</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/04/02/PS将psd中的android小图标单个保存为png图标/" class="leancloud_visitors" data-flag-title="PS将psd中的android小图标单个保存为png图标">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          平时在网上下载的图标文件大多数是PSD文件，需要我们自己手动PS获得想要的图标，下面就我自己的经验，教你怎么用从psd文件中获取android图标。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/02/PS将psd中的android小图标单个保存为png图标/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1260,7 +1135,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

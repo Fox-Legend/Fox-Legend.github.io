@@ -1,0 +1,826 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CTex," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="写好论文必备利器，本文简单介绍怎么使用CTex,学会之后再也不怕格式不对了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTex的基本使用方法">
+<meta property="og:url" content="http://yoursite.com/2016/05/12/CTex的基本使用方法/index.html">
+<meta property="og:site_name" content="Fox-Legend">
+<meta property="og:description" content="写好论文必备利器，本文简单介绍怎么使用CTex,学会之后再也不怕格式不对了">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104195938906">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104200434236">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104201024346">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104212705925">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104213645108">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104213635105">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104213927257">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104214246723">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104214348522">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104214358806">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104214527340">
+<meta property="og:image" content="http://img.blog.csdn.net/20160104215044259">
+<meta property="og:updated_time" content="2016-07-11T04:03:43.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTex的基本使用方法">
+<meta name="twitter:description" content="写好论文必备利器，本文简单介绍怎么使用CTex,学会之后再也不怕格式不对了">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160104195938906">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/05/12/CTex的基本使用方法/"/>
+
+  <title> CTex的基本使用方法 | Fox-Legend </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Fox-Legend</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">To stand in the spotlight of life, one must have experience in the shadows of setbacks.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CTex的基本使用方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-12T15:59:47+08:00" content="2016-05-12">
+              2016-05-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/杂烩学习/" itemprop="url" rel="index">
+                    <span itemprop="name">杂烩学习</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/12/CTex的基本使用方法/" class="leancloud_visitors" data-flag-title="CTex的基本使用方法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要内容</p>
+<ol>
+<li>Latex简介</li>
+<li>命令和环境</li>
+<li>文档排版和组织</li>
+<li>普通文本编辑</li>
+<li>数学公式编辑</li>
+<li>图形，插图，表格，文献等的编辑<a id="more"></a>
+<strong>一、Latex简介</strong><br><strong>1、概述</strong><br>首先要从TEX介绍起。TEX是斯坦福大学的教授Donald E.Knuth(图灵奖获得者)开发的一个功能强大的幕后排版系统。他当时在撰写名为The Art of Computer Programming的书，由于出版商把他书中的数学式子排版得很难看，他决定推迟出版，自行研发一套排版系统进行排版。这个系统就是TEX系统。<br>其次就是宏集(macro)：把一些经常用到的功能，事先定义好，到要用的时候只引用一小段代码就可以实现一个相对复杂的功能，那不仅提高了排版效率，而且版面也会清晰很多。这种事先定义好的功能，叫做宏集(macro)。<br><strong>LaTeX就是TEX的众多宏集之一</strong>，也是比较实用的一个，是由<strong>Leslie Lamport</strong>编写的。编写的目的是使版面设置内容和文档的具体内容尽可能分离，让写文档的人更加专注于文档的撰写，而少花些心思在排版上。所以，LaTeX从本质上讲，就是TEX排版系统的一个宏集，将一些常用到的功能整合为文档类型中的设置，简化了TEX排版的工作量及难度。<br><strong>CTEX</strong>是利用TEX排版系统的<strong>CTEX中文套装</strong>的简称。它集成了编辑器 、WinEdt和 PostScript处理软件 Ghostscript 和 GSview 等主要工具。 CTeX中文套装在 MiKTeX的基础上增加了对中文的完整支持。 CTeX中文套装支持 CCT 和 CJK 两种中文 TeX处理方式。<br>一般用windows操作系统的人会选择CTEX中的WinEdt软件作为编写LaTeX文档的工具，因为它里面会将latex命令改变颜色，并且将多种命令都集成到图形界面中，又简化了排版操作。<br><strong>2、Latex特点</strong></li>
+</ol>
+<ul>
+<li>TeX 系统是公认的数学公式排版最好的系统</li>
+<li>TeX 文档是 ASCII 码的纯文本文件</li>
+<li>自动编号：章节，图表，公式定理，文献…</li>
+<li>自动生成目录，索引、章节，图表，公式定理，参考文献页码可以交叉使用</li>
+<li>输出直接生成pdf文件</li>
+<li>TeX 是可编程的</li>
+<li>可以建立参考文献库…</li>
+</ul>
+<p><a href="http://www.ctex.org/CTeXDownload/" target="_blank" rel="external">Ctex套装下载链接</a>（现在最小版本是2.9），下载完整版本（CTeX_2.9.2.164_Full.exe）安装好就行。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">TeX</span> 不是在一个下午就能完全学会的,本文只是列出一些常用的基本方法。</div></pre></td></tr></table></figure>
+<p>安装好CTex之后，在安装好的目录中可以看到一下几个文件夹：</p>
+<ul>
+<li>WinEdit: 功能强大的文本编辑器（<strong>主要使用的</strong>）</li>
+<li>MikTeX: 一个TeX系统，核心</li>
+<li>Yap: 打印‘.dvi’文件</li>
+<li>Ghostscript: 将‘.dvi’文件转化为‘.ps’文件</li>
+<li><p>gsview: 打印‘.ps’文件</p>
+<p>WinEdt主界面<br><img src="http://img.blog.csdn.net/20160104195938906" alt=""></p>
+</li>
+</ul>
+<p><strong>一个简单的例子</strong></p>
+<ul>
+<li>创建并编辑你的源文件</li>
+<li>运行LATEX 编译你的源文件</li>
+<li>来预览得到的pdf文件</li>
+</ul>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">documentclass</span><span class="string">&#123;article&#125;</span></span></div><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;document&#125;</span></span></div><div class="line">Small is beautiful.</div><div class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;document&#125;</span></span></div></pre></td></tr></table></figure>
+<p>shift+ctrl+p运行，得到一个文件夹，里面有生成好的pdf文档<br><img src="http://img.blog.csdn.net/20160104200434236" alt=""><br>test.pdf就是生成好的文档，内容就是Small is beautiful.</p>
+<p>当我们要投某个期刊时，一般该期刊都会提供一个Tex的包，这个包就是期刊提供的论文排版格式，我们只需要在它的文件了进行编辑就行。</p>
+<p><strong>二、环境和命令</strong><br>这里以Information and Computation（INDAC）期刊的模板为例。<br><img src="http://img.blog.csdn.net/20160104201024346" alt=""></p>
+<p>文档目录结构<br>.tex<br>.bib 参考文献库<br>.cls 规定正文格式<br>.bst 规定参考文献格式<br>.sty 模版宏包<br>以及示例、说明、帮助等辅助文档</p>
+<p>用WinEdt打开.tex文件，这个就是该期刊的格式文档，我们在里面进行编辑就行。</p>
+<p>在第一节中有用到一个小例子，其中有<code>\begin{document}和\end{document}</code>，这两个就是简单的环境设定。<br>1、环境介绍<br>环境用\begin{..}和\end{…}来设定<br>作用：对环境内的所有文本进行统一格式<br>例： \begin{verbatim} ….\end{verbatim}<br>一般格式:<br>         \begin{&lt;环境名&gt;}<br>               … … ……<br>           \end{&lt;环境名&gt;}<br>直接单击‘insert’菜单中的有关条目</p>
+<p>比如在IDNAC提供的格式文档中</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;abstract&#125;</span></span></div><div class="line">This template helps you to create a properly formatted <span class="tag">\<span class="name">LaTeX</span></span><span class="tag">\<span class="name"> </span></span>manuscript.</div><div class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;abstract&#125;</span></span></div><div class="line"></div><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;keyword&#125;</span></span></div><div class="line"><span class="tag">\<span class="name">texttt</span><span class="string">&#123;elsarticle.cls&#125;</span></span><span class="tag">\<span class="name">sep</span></span> <span class="tag">\<span class="name">LaTeX</span></span><span class="tag">\<span class="name">sep</span></span> Elsevier <span class="tag">\<span class="name">sep</span></span> template</div><div class="line"><span class="tag">\<span class="name">MSC</span><span class="string">[2010]</span></span> 00-01<span class="tag">\<span class="name">sep</span></span>  99-00</div><div class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;keyword&#125;</span></span></div></pre></td></tr></table></figure>
+<p>其中的<code>\begin{abstract}、\end{abstract}、\begin{keyword}、\end{keyword}</code>就是一个摘要和关键字的环境。</p>
+<p>还有一个就是在文档中要用数学公式或者其它排版，可以用到<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amssymb, amsthm, amsmath&#125;</span></span></div></pre></td></tr></table></figure></p>
+<p>就有点像是C++中的include一样。</p>
+<p>2、文档内容编辑的命令与环境<br>这里以IANDC期刊的格式为例子，该期刊提供了论文编辑的格式包。<br>文档目录结构：<br>.tex<br>.bib 参考文献库<br>.cls 规定正文格式<br>.bst 规定参考文献格式<br>.sty 模版宏包<br>以及示例、说明、帮助等辅助文档<br><img src="http://img.blog.csdn.net/20160104212705925" alt=""></p>
+<p>1、文本编辑命令</p>
+<p>环境用\begin{..}和\end{…}来设定<br>作用：对环境内的所有文本进行统一格式<br>例： \begin{verbatim} ….\end{verbatim}</p>
+<p>如IANDC期刊论文格式中：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;abstract&#125;</span></span></div><div class="line">This template helps you to create a properly formatted <span class="tag">\<span class="name">LaTeX</span></span><span class="tag">\<span class="name"> </span></span>manuscript.</div><div class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;abstract&#125;</span></span></div><div class="line"></div><div class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;keyword&#125;</span></span></div><div class="line"><span class="tag">\<span class="name">texttt</span><span class="string">&#123;elsarticle.cls&#125;</span></span><span class="tag">\<span class="name">sep</span></span> <span class="tag">\<span class="name">LaTeX</span></span><span class="tag">\<span class="name">sep</span></span> Elsevier <span class="tag">\<span class="name">sep</span></span> template</div><div class="line"><span class="tag">\<span class="name">MSC</span><span class="string">[2010]</span></span> 00-01<span class="tag">\<span class="name">sep</span></span>  99-00</div><div class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;keyword&#125;</span></span></div></pre></td></tr></table></figure></p>
+<p>其中的<code>\begin{abstract}、\end{abstract}、\begin{keyword}、\end{keyword}</code>为摘要和关键字的编辑命令。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">section</span><span class="string">&#123;The Elsevier article class&#125;</span></span></div><div class="line"></div><div class="line"><span class="tag">\<span class="name">paragraph</span><span class="string">&#123;Installation&#125;</span></span> If the document class <span class="tag">\<span class="name">emph</span><span class="string">&#123;elsarticle&#125;</span></span> is not available on your computer, you can download and install the system package <span class="tag">\<span class="name">emph</span><span class="string">&#123;texlive-publishers&#125;</span></span> (Linux) or install the <span class="tag">\<span class="name">LaTeX</span></span><span class="tag">\<span class="name"> </span></span>package <span class="tag">\<span class="name">emph</span><span class="string">&#123;elsarticle&#125;</span></span> using the package manager of your <span class="tag">\<span class="name">TeX</span></span><span class="tag">\<span class="name"> </span></span>installation, which is typically <span class="tag">\<span class="name">TeX</span></span><span class="tag">\<span class="name"> </span></span>Live or Mik<span class="tag">\<span class="name">TeX</span></span>.</div></pre></td></tr></table></figure>
+<p>其中<code>\section、\paragraph</code>为标题和段落的编辑命令等等。</p>
+<p>2、数学公式的添加命令<br>注意：CTex是可编程的，所以在添数学公式时，需要”引用“包才能添加数学公式，这也是根据文档格式来进行排版的一种方式，如<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">\<span class="name">usepackage</span><span class="string">&#123;amssymb, amsthm, amsmath&#125;</span></span></div></pre></td></tr></table></figure></p>
+<p>其他的一些排版，如图片、表格都需要用此方法<code>\usepackage{...}</code><br>首先看一下在latex中添加数学公式需要用到的一些命令：<br><img src="http://img.blog.csdn.net/20160104213645108" alt=""><br><img src="http://img.blog.csdn.net/20160104213635105" alt=""><br>只要在tex文件中添加这些数学公式的命令，在对应生成的pdf文件中就会出现对应的数学公式符号。<br>但是这么多公式怎么记住了？不用记住！我们可以用MathType数学编辑软件来添加公式，直接复制粘贴就可以。<br>注意：要使Mathtype的中编辑的公式可以拷贝到tex文件中，先要对MathType进行设置–&gt;点击Preferences-&gt;Cut and Copy…，在这里面设置复制到tex格式。<br><img src="http://img.blog.csdn.net/20160104213927257" alt=""></p>
+<p>2、图表添加命令环境<br>如上所述，添加图表，也要添加对应的格式包<code>\usepackage{...}</code><br><img src="http://img.blog.csdn.net/20160104214246723" alt=""><br>[<strong>具体的图表添加方式可参考此博客]</strong>(<a href="http://blog.sina.com.cn/s/blog_976290d401014bv1.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_976290d401014bv1.html</a>)<br><img src="http://img.blog.csdn.net/20160104214348522" alt=""><br><img src="http://img.blog.csdn.net/20160104214358806" alt=""></p>
+<p>3、参考文献<br><img src="http://img.blog.csdn.net/20160104214527340" alt=""><br>参考文献不用我们自己像在word一样去用交叉引用，只需要在.bib文件中添加对应的参考文献，在tex文件中用/cite引用对应文献的<strong>lable</strong>名称就行，这个lable是我们自己给参考文献取的名字，便于我们自己区分是哪一篇论文。<br>如IANDC期刊中用<code>\bibliography{mybibfile}</code>mybibfile就是参考文献的.bib文件。<br>在.bib文件中的参考文献格式如下(其中的<strong>lable</strong>就是Dirac1953888)，那么在文中对应该文献的引用格式就是\cite{Dirac1953888}<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@article&#123;Dirac1953888,</div><div class="line">  <span class="attr">title</span>   = <span class="string">"The lorentz transformation and absolute time"</span>,</div><div class="line">  <span class="attr">journal</span> = <span class="string">"Physica "</span>,</div><div class="line">  <span class="attr">volume</span>  = <span class="string">"19"</span>,</div><div class="line">  <span class="attr">number</span>  = <span class="string">"1-–12"</span>,</div><div class="line">  <span class="attr">pages</span>   = <span class="string">"888--896"</span>,</div><div class="line">  <span class="attr">year</span>    = <span class="string">"1953"</span>,</div><div class="line">  <span class="attr">doi</span>     = <span class="string">"10.1016/S0031-8914(53)80099-6"</span>,</div><div class="line">  <span class="attr">author</span>  = <span class="string">"P.A.M. Dirac"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这个格式不用我们自己去写，比如在百度学术中找到参考文献，<br><img src="http://img.blog.csdn.net/20160104215044259" alt=""><br>选择BibTex就可以,打开之后得到如下结果：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@article&#123;杨金锋<span class="number">2004</span>一种新型的基于内容的图像识别与过滤方法,</div><div class="line">  <span class="attr">title=&#123;一种新型的基于内容的图像识别与过滤方法&#125;,</span></div><div class="line">  <span class="attr">author=&#123;杨金锋</span> <span class="literal">and</span> 傅周宇 <span class="literal">and</span> 谭铁牛 <span class="literal">and</span> 胡卫明 <span class="literal">and</span> 北京&#125;,</div><div class="line">  <span class="attr">journal=&#123;通信学报&#125;,</span></div><div class="line">  <span class="attr">volume=&#123;25&#125;,</span></div><div class="line">  <span class="attr">number=&#123;7&#125;,</span></div><div class="line">  <span class="attr">pages=&#123;93-106&#125;,</span></div><div class="line">  <span class="attr">year=&#123;2004&#125;,</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对应不同的期刊，对其各个部分进行相应的调整就行了。</p>
+<p>踏实学习，每天一点进步！！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CTex/" rel="tag">#CTex</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/12/字符串面试知识点/" rel="next" title="字符串面试知识点">
+                <i class="fa fa-chevron-left"></i> 字符串面试知识点
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/18/Android-Studio-开发小技巧/" rel="prev" title="Android Studio 开发小技巧">
+                Android Studio 开发小技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Fox-Legend" />
+          <p class="site-author-name" itemprop="name">Fox-Legend</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Fox-Legend" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/QJlinghu" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yosef-gao.github.io/index.html" title="yosef-gao" target="_blank">yosef-gao</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fox-Legend</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1bB4GpXl0cIhG0yvn0c41SIi-gzGzoHsz", "8MpzaQJDbI6URX2jlon3fdUq");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
