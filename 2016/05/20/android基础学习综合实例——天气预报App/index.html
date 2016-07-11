@@ -1,0 +1,806 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="天气预报," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="经过几个月的Android学习，自己先做一个App检验一下学习的基础知识怎么样，偶然在网上看到一些天气Api，所以自己也想实现以下，本文主要讲解在开发天气预报App第一步——怎么样获取天气预报App？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天气预报App实现">
+<meta property="og:url" content="http://yoursite.com/2016/05/20/android基础学习综合实例——天气预报App/index.html">
+<meta property="og:site_name" content="LeeFox'Notes">
+<meta property="og:description" content="经过几个月的Android学习，自己先做一个App检验一下学习的基础知识怎么样，偶然在网上看到一些天气Api，所以自己也想实现以下，本文主要讲解在开发天气预报App第一步——怎么样获取天气预报App？">
+<meta property="og:image" content="http://img.blog.csdn.net/20160123193542855">
+<meta property="og:image" content="http://img.blog.csdn.net/20160123193836400">
+<meta property="og:image" content="http://img.blog.csdn.net/20160123193844415">
+<meta property="og:updated_time" content="2016-07-11T04:04:09.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="天气预报App实现">
+<meta name="twitter:description" content="经过几个月的Android学习，自己先做一个App检验一下学习的基础知识怎么样，偶然在网上看到一些天气Api，所以自己也想实现以下，本文主要讲解在开发天气预报App第一步——怎么样获取天气预报App？">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160123193542855">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/05/20/android基础学习综合实例——天气预报App/"/>
+
+  <title> 天气预报App实现 | LeeFox'Notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">LeeFox'Notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">纸上得来终觉浅，绝知此事要躬行.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                天气预报App实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-20T22:03:38+08:00" content="2016-05-20">
+              2016-05-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/20/android基础学习综合实例——天气预报App/" class="leancloud_visitors" data-flag-title="天气预报App实现">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经过几个月的Android学习，自己先做一个App检验一下学习的基础知识怎么样，偶然在网上看到一些天气Api，所以自己也想实现以下，本文主要讲解在开发天气预报App第一步——怎么样获取天气预报App？<br><a id="more"></a><br>一、现有的比较好的天气数据Api（免费的）<br>1、百度天气Api：<a href="http://apistore.baidu.com/apiworks/servicedetail/478.html" target="_blank" rel="external">http://apistore.baidu.com/apiworks/servicedetail/478.html</a><br>2、新浪天气Api：<a href="http://weather.news.sina.com.cn/weather/" target="_blank" rel="external">http://weather.news.sina.com.cn/weather/</a><br>3、中国气象局数据开发平台：<a href="http://openweather.weather.com.cn/（我用的就是这个）" target="_blank" rel="external">http://openweather.weather.com.cn/（我用的就是这个）</a></p>
+<p>还有很多其它的天气预报数据接口，我只看了这3个，它们都差不多，都是根据你需要查询的城市，再返回JSon格式的天气预报数据。<br>比如中国气象局数据开放平台（SmartWeatherAPI）：<br><strong>使用规范：</strong><br>请求方式： http get<br>接口组成： 由固定 URL 加 5 个不同的参数组成，完整 URL 需客户<br>端经过固定方式加密后使用。<br>数据返回： json<br>完整 URL：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://<span class="keyword">open</span>.weather.<span class="keyword">com</span>.<span class="keyword">cn</span>/data/?areaid=<span class="string">""</span>&amp;<span class="built_in">type</span>=<span class="string">""</span>&amp;date=</div><div class="line"><span class="string">""</span>&amp;appid=<span class="string">""</span>&amp;key=<span class="comment">".urlencode($key);</span></div></pre></td></tr></table></figure></p>
+<p>固定 URL： <a href="http://open.weather.com.cn/data/" target="_blank" rel="external">http://open.weather.com.cn/data/</a><br>输入参数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数名称</th>
+<th style="text-align:left">参数含义</th>
+<th style="text-align:left">参数样例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">areaid</td>
+<td style="text-align:left">区域 id</td>
+<td style="text-align:left">单区域:101010100;多区域:101010100/101010200</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:left">数据类型</td>
+<td style="text-align:left">指数:index_f(基础)、index_v(常规) 3天常规预报(24 小时):forecast_f(基础)、forecast_v (常规)</td>
+</tr>
+<tr>
+<td style="text-align:center">date</td>
+<td style="text-align:left">客户端日期</td>
+<td style="text-align:left">按照格式 yyyyMMddHHmm 获取客户端当前时间</td>
+</tr>
+<tr>
+<td style="text-align:center">appid</td>
+<td style="text-align:left">固定分配的型号标识</td>
+<td style="text-align:left">xx: 1234567890 传递参数时:截取 appid 的前 6 位生成公钥时:取完整的 appid</td>
+</tr>
+<tr>
+<td style="text-align:center">key</td>
+<td style="text-align:left">令牌</td>
+<td style="text-align:left">由公钥(public_key)和私钥(private_key)通过固定算法加密生成</td>
+</tr>
+</tbody>
+</table>
+<p>其中的<strong>key=”.urlencode($key)</strong> 是根据用户在中国气象数据开放平台注册之后分配的key，进行加密之后得到的一串码文，以此来进行数据请求。<br>输入示例：<br><em><a href="http://open.weather.com.cn/data/?areaid=101010100&amp;type=forecast_f&amp;date=201212010741&amp;appid=123456&amp;key=hPZf1%2F5Ag%2F4JS2A%2BcYmpj5Yv2YA%3D" target="_blank" rel="external">http://open.weather.com.cn/data/?areaid=101010100&amp;type=forecast_f&amp;date=201212010741&amp;appid=123456&amp;key=hPZf1%2F5Ag%2F4JS2A%2BcYmpj5Yv2YA%3D</a></em><br>其中的key就是通过加密之后得到码文。发送请求得到返回json格式数据：</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="string">"c"</span>:&#123;<span class="string">"c1"</span>:<span class="string">"101010100"</span>,<span class="string">"c2"</span>:<span class="string">"beijing"</span>,<span class="string">"c3"</span>:<span class="string">"北京"</span>,<span class="string">"c4"</span>:<span class="string">"beijing"</span>,<span class="string">"c5"</span>:<span class="string">"北 京"</span>,<span class="string">"c6"</span>:<span class="string">"beijing"</span>,<span class="string">"c7"</span>:<span class="string">"北京"</span>,<span class="string">"c8"</span>:<span class="string">"china"</span>,<span class="string">"c9"</span>:<span class="string">"中 国"</span>,<span class="string">"c10"</span>:<span class="string">"1"</span>,<span class="string">"c11"</span>:<span class="string">"010"</span>,<span class="string">"c12"</span>:<span class="string">"100000"</span>,<span class="string">"c13"</span>:<span class="string">"116.391"</span>,<span class="string">"c14"</span>:<span class="string">"39.904"</span>,<span class="string">"c15"</span>:<span class="string">"33"</span>,<span class="string">"c16"</span>:<span class="string">"AZ9010"</span>&#125;</div><div class="line"><span class="string">"f"</span>:&#123;<span class="string">"f0"</span>:<span class="string">"201203061100"</span>,</div><div class="line"><span class="string">"f1"</span>:[ &#123;<span class="comment">//第一天预报数据</span></div><div class="line"><span class="string">"fa"</span>:<span class="string">"01"</span>, <span class="string">"fb"</span>:<span class="string">"01"</span>, <span class="string">"fc"</span>:<span class="string">"11"</span>, <span class="string">"fd"</span>:<span class="string">"0"</span>,<span class="string">""</span>ff<span class="string">":"</span><span class="number">4</span><span class="string">", "</span>fg<span class="string">":"</span><span class="number">1</span><span class="string">", ""fi"</span>:<span class="string">"06:44|18:21"</span>&#125;,</div><div class="line">&#123;<span class="comment">//第二天预报数据</span></div><div class="line">...&#125;</div><div class="line">&#123;</div><div class="line"><span class="comment">//第三天预报数据</span></div><div class="line"><span class="string">"fa"</span>:<span class="string">"01"</span>, <span class="string">"fb"</span>:<span class="string">"01"</span>, <span class="string">"fc"</span>:<span class="string">"11"</span>,<span class="string">"fd"</span>:<span class="string">"0"</span>,<span class="string">"fe"</span>:<span class="string">"4"</span>, <span class="string">"ff"</span>:<span class="string">"4"</span>, <span class="string">"fg"</span>:<span class="string">"1"</span>, <span class="string">""</span>fi<span class="string">":"</span><span class="number">06</span>:<span class="number">44</span><span class="string">|18:21"</span>&#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对用参数含义：<br><img src="http://img.blog.csdn.net/20160123193542855" alt=""><br>天气情况表：<br><img src="http://img.blog.csdn.net/20160123193836400" alt=""><br><img src="http://img.blog.csdn.net/20160123193844415" alt=""><br>其它的一些内容可在气象局提供的帮助文档中找到。</p>
+<p>2、获取天气预报数据思路<br>根据http请求返回得到的天气预报数据都是一些代码，具体含义不能直接得到，所以思路是将这些信息添加到一个数据库中，根据得到的天气代码去查询数据库，最后得到具体的天气情况。</p>
+<p>2.1、获得省-市-县信息<br>我们要得到天气预报，先要知道我们先要查询的城市的编码，全国城市编码都是统一的，在中国气象数据开放平台也可以下载到一个包含全国所有省-市-县的编码表（excel格式），我们需要通过代码将全国的城市编码读入到数据库中（不是一次性读入，是根据用户点击的“省”）。<br>当开启APP时，程序读取excel表，先将所有的省份编码存入到数据库中，当用户点击对应的省份时，先根据省份的编码查询数据库，若数据库中有该省份下的城市编码，则直接读取，否则就去读取excel表，根据省份的编码获取对应的所有城市的编码，以此循环，只有当用户点击完所有的省份时，数据库中才会保存全国城市的信息编码。</p>
+<p>2.2、分析编码<br>例如浙江杭州萧山的编码<strong>101210102</strong><br>前三位101是固定码，全国所有的城市编码前三位都是101；<br>第4位和第5位表示的是省份的编码，即21表示的是浙江省；<br>第6、7位表示的是城市编码，即01表示的是浙江省的杭州市；<br>第8、9位表示的县（或者区）编码，即01表示浙江省杭州市萧山区。<br>当然也有特殊的省份，比如北京、上海等直辖市的编码，因为它们下面没有市，所以它们的编码最后2位都是00。</p>
+<p>2.3、获取天气预报数据信息<br>首先根据气象数据开放平台分配的AppId和Private_Key，以及选择的城市代码，通过加密得到http请求的加密文：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">char</span> last2byte = (<span class="built_in">char</span>) Integer.parseInt(<span class="string">"00000011"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">char</span> last4byte = (<span class="built_in">char</span>) Integer.parseInt(<span class="string">"00001111"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">char</span> last6byte = (<span class="built_in">char</span>) Integer.parseInt(<span class="string">"00111111"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">char</span> lead6byte = (<span class="built_in">char</span>) Integer.parseInt(<span class="string">"11111100"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">char</span> lead4byte = (<span class="built_in">char</span>) Integer.parseInt(<span class="string">"11110000"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">char</span> lead2byte = (<span class="built_in">char</span>) Integer.parseInt(<span class="string">"11000000"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">char</span>[] encodeTable = <span class="keyword">new</span> <span class="built_in">char</span>[] &#123; <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="string">'D'</span>, <span class="string">'E'</span>, <span class="string">'F'</span>, <span class="string">'G'</span>, <span class="string">'H'</span>, <span class="string">'I'</span>, <span class="string">'J'</span>, <span class="string">'K'</span>, <span class="string">'L'</span>, <span class="string">'M'</span>, <span class="string">'N'</span>, <span class="string">'O'</span>, <span class="string">'P'</span>, <span class="string">'Q'</span>,<span class="string">'R'</span>, <span class="string">'S'</span>, <span class="string">'T'</span>, <span class="string">'U'</span>, <span class="string">'V'</span>, <span class="string">'W'</span>, <span class="string">'X'</span>, <span class="string">'Y'</span>, <span class="string">'Z'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>,<span class="string">'e'</span>, <span class="string">'f'</span>, <span class="string">'g'</span>, <span class="string">'h'</span>, <span class="string">'i'</span>, <span class="string">'j'</span>, <span class="string">'k'</span>, <span class="string">'l'</span>, <span class="string">'m'</span>, <span class="string">'n'</span>, <span class="string">'o'</span>, <span class="string">'p'</span>, <span class="string">'q'</span>, <span class="string">'r'</span>, <span class="string">'s'</span>, <span class="string">'t'</span>, <span class="string">'u'</span>, <span class="string">'v'</span>, <span class="string">'w'</span>, <span class="string">'x'</span>, <span class="string">'y'</span>, <span class="string">'z'</span>, <span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>,<span class="string">'4'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'8'</span>, <span class="string">'9'</span>, <span class="string">'+'</span>, <span class="string">'/'</span>&#125;;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">String</span> standardURLEncoder(<span class="keyword">String</span> data, <span class="keyword">String</span> <span class="built_in">key</span>) &#123;</div><div class="line">        <span class="built_in">byte</span>[] byteHMAC = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">String</span> urlEncoder = <span class="string">""</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Mac mac = Mac.getInstance(<span class="string">"HmacSHA1"</span>);</div><div class="line">            SecretKeySpec spec = <span class="keyword">new</span> SecretKeySpec(<span class="built_in">key</span>.getBytes(), <span class="string">"HmacSHA1"</span>);</div><div class="line">            mac.init(spec);</div><div class="line">            byteHMAC = mac.doFinal(data.getBytes());</div><div class="line">            <span class="keyword">if</span> (byteHMAC != <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">String</span> oauth = encode(byteHMAC);</div><div class="line">                <span class="keyword">if</span> (oauth != <span class="keyword">null</span>) &#123;</div><div class="line">                    urlEncoder = URLEncoder.encode(oauth, <span class="string">"utf8"</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (InvalidKeyException e1) &#123;</div><div class="line">            e1.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e2) &#123;</div><div class="line">            e2.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> urlEncoder;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">String</span> encode(<span class="built_in">byte</span>[] from) &#123;</div><div class="line">        StringBuffer to = <span class="keyword">new</span> StringBuffer((<span class="built_in">int</span>) (from.length * <span class="number">1.34</span>) + <span class="number">3</span>);</div><div class="line">        <span class="built_in">int</span> num = <span class="number">0</span>;</div><div class="line">        <span class="built_in">char</span> currentByte = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; from.length; i++) &#123;</div><div class="line">            num = num % <span class="number">8</span>;</div><div class="line">            <span class="keyword">while</span> (num &lt; <span class="number">8</span>) &#123;</div><div class="line">                <span class="keyword">switch</span> (num) &#123;</div><div class="line">                <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">                    currentByte = (<span class="built_in">char</span>) (from[i] &amp; lead6byte);</div><div class="line">                    currentByte = (<span class="built_in">char</span>) (currentByte &gt;&gt;&gt; <span class="number">2</span>);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                    currentByte = (<span class="built_in">char</span>) (from[i] &amp; last6byte);</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">4</span>:</div><div class="line">                    currentByte = (<span class="built_in">char</span>) (from[i] &amp; last4byte);</div><div class="line">                    currentByte = (<span class="built_in">char</span>) (currentByte &lt;&lt; <span class="number">2</span>);</div><div class="line">                    <span class="keyword">if</span> ((i + <span class="number">1</span>) &lt; from.length) &#123;</div><div class="line">                        currentByte |= (from[i + <span class="number">1</span>] &amp; lead2byte) &gt;&gt;&gt; <span class="number">6</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> <span class="number">6</span>:</div><div class="line">                    currentByte = (<span class="built_in">char</span>) (from[i] &amp; last2byte);</div><div class="line">                    currentByte = (<span class="built_in">char</span>) (currentByte &lt;&lt; <span class="number">4</span>);</div><div class="line">                    <span class="keyword">if</span> ((i + <span class="number">1</span>) &lt; from.length) &#123;</div><div class="line">                        currentByte |= (from[i + <span class="number">1</span>] &amp; lead4byte) &gt;&gt;&gt; <span class="number">4</span>;</div><div class="line">                    &#125;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                to.<span class="built_in">append</span>(encodeTable[currentByte]);</div><div class="line">                num += <span class="number">6</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (to.length() % <span class="number">4</span> != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">4</span> - to.length() % <span class="number">4</span>; i &gt; <span class="number">0</span>; i--) &#123;</div><div class="line">                to.<span class="built_in">append</span>(<span class="string">"="</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> to.toString();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">          <span class="comment">//需要加密的数据  </span></div><div class="line">	      <span class="keyword">String</span> data = <span class="string">"http://open.weather.com.cn/data/?areaid=xxxxxxxxxx&amp;type=xxxxxxxx&amp;date=xxxxxxxxx&amp;appid=xxxxxxx"</span>;  </div><div class="line">		    <span class="comment">//密钥  </span></div><div class="line">		    <span class="keyword">String</span> <span class="built_in">key</span> = <span class="string">"xxxxx_SmartWeatherAPI_xxxxxxx"</span>;  </div><div class="line">            <span class="keyword">String</span> <span class="built_in">str</span> = standardURLEncoder(data, <span class="built_in">key</span>);</div><div class="line">            System.out.<span class="built_in">println</span>(<span class="built_in">str</span>);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过以上demo可以获得加密文str，再根据上述的请求URL格式：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://<span class="keyword">open</span>.weather.<span class="keyword">com</span>.<span class="keyword">cn</span>/data/areaid=<span class="string">""</span>&amp;<span class="built_in">type</span>=<span class="string">""</span>&amp;date=<span class="string">""</span>&amp;appid=<span class="string">""</span>&amp;key=<span class="comment">"str;</span></div></pre></td></tr></table></figure></p>
+<p>获取json格式数据，再解析json数据。</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* 解析天气预报信息</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> handleWeatherResponse(Context context,<span class="keyword">String</span> response)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">try</span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">JSONObject</span> jsonObject = <span class="keyword">new</span> <span class="keyword">JSONObject</span>(response);</div><div class="line">		<span class="keyword">JSONObject</span> cityInfo = jsonObject.getJSONObject(<span class="string">"c"</span>);<span class="comment">// 城市的信息</span></div><div class="line">		<span class="keyword">String</span> cityCode = cityInfo.getString(<span class="string">"c1"</span>);</div><div class="line">		<span class="keyword">String</span> cityName = cityInfo.getString(<span class="string">"c3"</span>);</div><div class="line">		<span class="keyword">JSONObject</span> weatherInfo = jsonObject.getJSONObject(<span class="string">"f"</span>);<span class="comment">// 天气信息</span></div><div class="line">		<span class="comment">// 第一天的天气预报（当天）</span></div><div class="line">		<span class="keyword">JSONArray</span> weatherInfo_f1 = weatherInfo.getJSONArray(<span class="string">"f1"</span>);</div><div class="line">		<span class="keyword">String</span> temp1 = weatherInfo_f1.getJSONObject(<span class="number">0</span>).getString(<span class="string">"fc"</span>);<span class="comment">// 白天的温度</span></div><div class="line">		<span class="keyword">String</span> temp2 = weatherInfo_f1.getJSONObject(<span class="number">0</span>).getString(<span class="string">"fd"</span>);<span class="comment">// 晚上的温度</span></div><div class="line">		<span class="keyword">String</span> weather1 = weatherInfo_f1.getJSONObject(<span class="number">0</span>).getString(<span class="string">"fa"</span>);<span class="comment">// 白天的天气情况</span></div><div class="line">		<span class="keyword">String</span> weather2 = weatherInfo_f1.getJSONObject(<span class="number">0</span>).getString(<span class="string">"fb"</span>);<span class="comment">// 晚上的天气情况</span></div><div class="line">		<span class="comment">// 温度发布时间</span></div><div class="line">		<span class="keyword">String</span> publishTime = weatherInfo.getString(<span class="string">"f0"</span>);</div><div class="line">		<span class="keyword">String</span> Date = publishTime.substring(<span class="number">0</span>, <span class="number">8</span>);<span class="comment">// 日期</span></div><div class="line">		<span class="keyword">String</span> Time = publishTime.substring(<span class="number">8</span>, <span class="number">12</span>);<span class="comment">// 时间</span></div><div class="line">		saveWeatherInfo(context, cityName, temp1, temp2, weather1,weather2, Date, Time);<span class="comment">//将获取的天气预报信息编码存入到SharePreferences中</span></div><div class="line">	&#125; <span class="keyword">catch</span> (JSONException e)</div><div class="line">	&#123;</div><div class="line">		e.printStackTrace();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将获取的天气预报信息编码存入到SharePreferences中<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">SimpleDateFormat sdf = new SimpleDateFormat(<span class="string">"yyyy年M月d日"</span>, Locale.CHINA)<span class="comment">;</span></div><div class="line"><span class="keyword">SharedPreferences.Editor </span>editor = <span class="keyword">PreferenceManager</span></div><div class="line">.getDefaultSharedPreferences(<span class="built_in">context</span>).edit()<span class="comment">;</span></div><div class="line">editor.putBoolean(<span class="string">"city_selected"</span>, true)<span class="comment">;</span></div><div class="line">editor.putString(<span class="string">"city_name"</span>, cityName)<span class="comment">;</span></div><div class="line">editor.putString(<span class="string">"temp1"</span>, temp1)<span class="comment">;</span></div><div class="line">editor.putString(<span class="string">"temp2"</span>, temp2)<span class="comment">;</span></div><div class="line">editor.putString(<span class="string">"weather1"</span>, weather1)<span class="comment">;</span></div><div class="line">editor.putString(<span class="string">"weather2"</span>, weather2)<span class="comment">;</span></div><div class="line">editor.putString(<span class="string">"current_date"</span>, sdf.format(new Date()))<span class="comment">;</span></div><div class="line">editor.putString(<span class="string">"time"</span>, time)<span class="comment">;</span></div><div class="line">editor.commit()<span class="comment">;</span></div></pre></td></tr></table></figure></p>
+<p>3、基本功能模块设计</p>
+<p>后续添加</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/天气预报/" rel="tag">#天气预报</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/18/Android-Studio-开发小技巧/" rel="next" title="Android Studio 开发小技巧">
+                <i class="fa fa-chevron-left"></i> Android Studio 开发小技巧
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/22/android基础学习综合实例——天气预报App（基本功能实现）/" rel="prev" title="天气预报App--基本功能实现">
+                天气预报App--基本功能实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Fox-Legend" />
+          <p class="site-author-name" itemprop="name">Fox-Legend</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Fox-Legend" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/QJlinghu" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yosef-gao.github.io/index.html" title="yosef-gao" target="_blank">yosef-gao</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fox-Legend</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("1bB4GpXl0cIhG0yvn0c41SIi-gzGzoHsz", "8MpzaQJDbI6URX2jlon3fdUq");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
