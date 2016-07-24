@@ -100,7 +100,7 @@
 @Retention
 @Documented
 @Inherited">
-<meta property="og:updated_time" content="2016-07-06T11:21:07.594Z">
+<meta property="og:updated_time" content="2016-07-22T13:29:22.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java注解学习">
 <meta name="twitter:description" content="元注解元注解的作用就是负责注解其他的注解。Java(从Java5.0)中定义了4个标准的meta-annotation类型.
@@ -359,7 +359,7 @@
 <h4 id="Documented"><a href="#Documented" class="headerlink" title="@Documented"></a>@Documented</h4><p>@Documented用于描述其它类型的annotation应该被作为被标注的程序成员的公共API,因此可以被例如javadoc此类的工具文档化。Documented是一个标记注解，没有成员。</p>
 <h4 id="Inherited"><a href="#Inherited" class="headerlink" title="@Inherited"></a>@Inherited</h4><p>@Inherited 元注解是一个标记注解,@Inherited阐述了某个被标注的类型是被继承的.如果一个使用了@Inherited修饰的annotation类型被用于一个class,则这个annotation将被用于该class的子类.</p>
 <p><em>注意：</em> @Inherited annotation类型是被标注过的class的子类所继承。类并不从它所实现的接口继承annotation，方法并不从它所重载的方法继承annotation。</p>
-<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><p>使用@interface自定义注解时，自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。@interface用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型（返回值类型只能是基本类型、Class、String、enum）。可以通过default来声明参数的默认值.<br><strong>定义注解格式：</strong><br>public /@interface 注解名 {定义体}</p>
+<h3 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h3><p>使用@interface自定义注解时，自动继承了java.lang.annotation.Annotation接口，由编译程序自动完成其他细节。在定义注解时，不能继承其他的注解或接口。@interface用来声明一个注解，其中的每一个方法实际上是声明了一个配置参数。方法的名称就是参数的名称，返回值类型就是参数的类型（返回值类型只能是基本类型、Class、String、enum）。可以通过default来声明参数的默认值.<br><strong>定义注解格式：</strong><br>public @interface 注解名 {定义体}</p>
 <p><strong>注解参数的可支持数据类型：</strong></p>
 <ol>
 <li>所有基本数据类型（int,float,boolean,byte,double,char,long,short)</li>
@@ -400,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/30/Spring-App/" rel="next" title="Spring配置以及使用">
-                <i class="fa fa-chevron-left"></i> Spring配置以及使用
+              <a href="/2016/06/30/Spring2/" rel="next" title="Spring 核心技术之依赖注入">
+                <i class="fa fa-chevron-left"></i> Spring 核心技术之依赖注入
               </a>
             
           </div>
@@ -478,7 +478,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

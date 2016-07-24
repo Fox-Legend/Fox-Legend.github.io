@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, Lee" />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -84,12 +84,22 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="LeeFox'Notes">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="创建型模式简约的理解创建型模式就是和创建对象相关的设计模式,它主要包含了6种设计模式：1) 单例模式2) 建造者模式3) 原型模式4) 简单工厂模式5) 工厂方法模式6) 抽象工厂模式
+1、单例模式(Singleton)定义：确保某一个类只有一个实例,而且自行实例化并向整个系统提供这个实例.UML类图:其中Client——高层客户端;Singleton——单例类实现单例模式的几个关键点：1) 构造">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之创建型模式">
+<meta property="og:url" content="http://yoursite.com/2016/07/15/设计模式之创建型模式/index.html">
 <meta property="og:site_name" content="LeeFox'Notes">
+<meta property="og:description" content="创建型模式简约的理解创建型模式就是和创建对象相关的设计模式,它主要包含了6种设计模式：1) 单例模式2) 建造者模式3) 原型模式4) 简单工厂模式5) 工厂方法模式6) 抽象工厂模式
+1、单例模式(Singleton)定义：确保某一个类只有一个实例,而且自行实例化并向整个系统提供这个实例.UML类图:其中Client——高层客户端;Singleton——单例类实现单例模式的几个关键点：1) 构造">
+<meta property="og:image" content="http://yoursite.com/singleton.png">
+<meta property="og:image" content="http://yoursite.com/Builder.png">
+<meta property="og:updated_time" content="2016-07-19T11:25:21.610Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LeeFox'Notes">
+<meta name="twitter:title" content="设计模式之创建型模式">
+<meta name="twitter:description" content="创建型模式简约的理解创建型模式就是和创建对象相关的设计模式,它主要包含了6种设计模式：1) 单例模式2) 建造者模式3) 原型模式4) 简单工厂模式5) 工厂方法模式6) 抽象工厂模式
+1、单例模式(Singleton)定义：确保某一个类只有一个实例,而且自行实例化并向整个系统提供这个实例.UML类图:其中Client——高层客户端;Singleton——单例类实现单例模式的几个关键点：1) 构造">
+<meta name="twitter:image" content="http://yoursite.com/singleton.png">
 
 
 
@@ -110,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/15/设计模式之创建型模式/"/>
 
-  <title> LeeFox'Notes </title>
+  <title> 设计模式之创建型模式 | LeeFox'Notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,9 +143,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -222,9 +230,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -244,10 +252,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/07/15/设计模式之创建型模式/" itemprop="url">
-                  设计模式之创建型模式
-                </a>
+                设计模式之创建型模式
               
             
           </h1>
@@ -315,9 +320,7 @@
       
 
       
-        
-          
-            <h3 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h3><p>简约的理解创建型模式就是和创建对象相关的设计模式,它主要包含了6种设计模式：<br>1) 单例模式<br>2) 建造者模式<br>3) 原型模式<br>4) 简单工厂模式<br>5) 工厂方法模式<br>6) 抽象工厂模式</p>
+        <h3 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h3><p>简约的理解创建型模式就是和创建对象相关的设计模式,它主要包含了6种设计模式：<br>1) 单例模式<br>2) 建造者模式<br>3) 原型模式<br>4) 简单工厂模式<br>5) 工厂方法模式<br>6) 抽象工厂模式</p>
 <h3 id="1、单例模式-Singleton"><a href="#1、单例模式-Singleton" class="headerlink" title="1、单例模式(Singleton)"></a>1、单例模式(Singleton)</h3><p>定义：确保某一个类只有一个实例,而且自行实例化并向整个系统提供这个实例.<br>UML类图:<br><img src="singleton.png" alt="Singleton模式"><br>其中Client——高层客户端;Singleton——单例类<br>实现单例模式的几个关键点：<br>1) 构造函数不对外开放,一般为private<br>2) 通过一个静态方法或者枚举返回单例类对象<br>3) 确保单例类对象只有一个<br>4) 确保单例类对象在反序列化时不会重新构建对象.</p>
 <h4 id="单例模式实现方法"><a href="#单例模式实现方法" class="headerlink" title="单例模式实现方法"></a>单例模式实现方法</h4><p>实现单例模式有饿汉单例模式、懒汉单例模式、DCL实现单例、静态内部类单例模式、枚举单例、容器实现单例模式.<br>  <strong>饿汉单例模式</strong>：在类中声明一个静态对象并初始化,对外开放一个静态方法用于返回该静态对象,以此实现单例模式.<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 饿汉单例模式</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &#123;</div><div class="line">	<span class="comment">//创建静态对象并初始化</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> final Singleton singleton = <span class="keyword">new</span> Singleton();</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	<span class="comment">//对外开发的方法,并返回静态对象</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>  <strong>懒汉单例模式</strong>：在类中声明一个静态对象,并且在用户第一次调用getInstance()方法时才对其进行初始化.这里和饿汉单例模式的区别就在于单例对象创建的时间不同.其优点在于只有在使用时才会被实例化;其缺点就是第一次加载时需要及时实例化,反应稍慢,最大的问题就是每次调用getInstance方式都需要进行同步.<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 懒汉单例模式</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Singleton</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 若单例类对象为空,即第一次调用getInstance方法,则先创建再返回;若单例对象已经创建过了,那么直接返回</div><div class="line">	 * @return</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> synchronized Singleton <span class="title">getInstance</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(singleton==<span class="literal">null</span>)&#123;</div><div class="line">			singleton = <span class="keyword">new</span> Singleton();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -327,520 +330,58 @@
 <h4 id="建造者模式实现"><a href="#建造者模式实现" class="headerlink" title="建造者模式实现"></a>建造者模式实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 抽象Builder类,定义产品的组建步骤(如需要哪些组件)</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">buildeWheel</span><span class="params">(String wheel)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">buildeEngine</span><span class="params">(String engine)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">buildeExterior</span><span class="params">(String exterior)</span></span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">buildBrand</span><span class="params">()</span></span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Car <span class="title">create</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 抽象产品类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</div><div class="line">	<span class="keyword">protected</span> String mWheel;</div><div class="line">	<span class="keyword">protected</span> String mEngine;</div><div class="line">	<span class="keyword">protected</span> String mExterior;</div><div class="line">	<span class="keyword">protected</span> String mBrand;</div><div class="line">	<span class="function"><span class="keyword">protected</span> <span class="title">Car</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">setmBrand</span><span class="params">()</span></span>;</div><div class="line">	<span class="comment">//省略setter和getter</span></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">		<span class="keyword">return</span> <span class="string">"Car [mWheel="</span> + mWheel +<span class="string">", mEngine="</span>+mEngine + <span class="string">", mExterior="</span> + mExterior+ <span class="string">", mBrand="</span>+ mBrand +<span class="string">"]"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 具体产品类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BMWCar</span> <span class="keyword">extends</span> <span class="title">Car</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setmBrand</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">		mBrand = <span class="string">"BMW x1"</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 具体Builder类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BMWCarBuilder</span> <span class="keyword">extends</span> <span class="title">Builder</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> Car car = <span class="keyword">new</span> BMWCar();</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildeWheel</span><span class="params">(String wheel)</span> </span>&#123;</div><div class="line">		<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">		car.setmWheel(wheel);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildeEngine</span><span class="params">(String engine)</span> </span>&#123;</div><div class="line">		<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">		car.setmEngine(engine);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildeExterior</span><span class="params">(String exterior)</span> </span>&#123;</div><div class="line">		<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">		car.setmExterior(exterior);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildBrand</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">		car.setmBrand();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> Car <span class="title">create</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="comment">// TODO Auto-generated method stub</span></div><div class="line">		<span class="keyword">return</span> car;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 指导者类</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</div><div class="line">	Builder mBuilder = <span class="keyword">null</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Director</span><span class="params">(Builder builder)</span></span>&#123;</div><div class="line">		mBuilder = builder;</div><div class="line">	&#125;</div><div class="line">  <span class="comment">//构建对象</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">construct</span><span class="params">(String wheel,String engine,String extrior)</span></span>&#123;</div><div class="line">		mBuilder.buildeWheel(wheel);</div><div class="line">		mBuilder.buildeEngine(engine);</div><div class="line">		mBuilder.buildeExterior(extrior);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//使用</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Builder builder = <span class="keyword">new</span> BMWCarBuilder();</div><div class="line">		<span class="comment">//builder.create().setmWheel("日产");</span></div><div class="line">		Director d = <span class="keyword">new</span> Director(builder);</div><div class="line">		d.construct(<span class="string">""</span>, <span class="string">""</span>, <span class="string">""</span>);<span class="comment">//传入参数</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="原型模式-Prototype"><a href="#原型模式-Prototype" class="headerlink" title="原型模式(Prototype)"></a>原型模式(Prototype)</h3><p>定义：用原型实例指定创建对象的种类,并通过拷贝这些原型创建新的对象.<br>使用场景：(1)类初始化需要消化非常多的资源,这个资源包含数据、硬件资源等,通过原型拷贝避免这些浪费;<br>(2)通过new产生一个对象需要非常繁琐的数据准备或者访问权限;</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/10/自定义View之App用户头像截取/" itemprop="url">
-                  自定义View之App用户头像截取控件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-10T13:16:54+08:00" content="2016-07-10">
-              2016-07-10
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/07/10/自定义View之App用户头像截取/" class="leancloud_visitors" data-flag-title="自定义View之App用户头像截取控件">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h3 id="1、引言"><a href="#1、引言" class="headerlink" title="1、引言"></a>1、引言</h3><p>在平时开发App过程中，用户需要设置头像的，从众多app的头像设置来看，基本可分为2中情况：1)圆形头像(如QQ,新浪微博等);2)矩形头像(如微信等).<br>其实也有好多高仿QQ截图或者微信头像截图的博文,但是都不是真正的高仿,只能作为一个参考,直接拿来用还不够完美,索性自己的也需要这个控件,自己动手写一个.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/10/自定义View之App用户头像截取/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/10/自定义View之App用户头像截取/" rel="next" title="自定义View之App用户头像截取控件">
+                <i class="fa fa-chevron-left"></i> 自定义View之App用户头像截取控件
+              </a>
+            
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/06/注解（Annotation）/" itemprop="url">
-                  Java注解学习
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-06T13:29:13+08:00" content="2016-07-06">
-              2016-07-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/07/06/注解（Annotation）/" class="leancloud_visitors" data-flag-title="Java注解学习">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="元注解"><a href="#元注解" class="headerlink" title="元注解"></a>元注解</h3><p>元注解的作用就是负责注解其他的注解。Java(从Java5.0)中定义了4个标准的meta-annotation类型.</p>
-<ol>
-<li>@Target</li>
-<li>@Retention</li>
-<li>@Documented</li>
-<li>@Inherited
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/06/注解（Annotation）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/30/Spring2/" itemprop="url">
-                  Spring 核心技术之依赖注入
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-30T10:26:54+08:00" content="2016-06-30">
-              2016-06-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/06/30/Spring2/" class="leancloud_visitors" data-flag-title="Spring 核心技术之依赖注入">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>可以有2种方式创建基础的Spring,1)使用<a href="http://start.spring.io/" target="_blank" rel="external">Spring Initializr</a>选择你需要的Spring版本、仓库(Maven、Gradle)模块,在创建好之后下载一个压缩包.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/27/Spring/" itemprop="url">
-                  Spring 框架基础学习之模块
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-27T13:29:13+08:00" content="2016-06-27">
-              2016-06-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/06/27/Spring/" class="leancloud_visitors" data-flag-title="Spring 框架基础学习之模块">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1、Modules"><a href="#1、Modules" class="headerlink" title="1、Modules"></a>1、Modules</h3><p>Spring 框架集成了20多个模块,这些模块按照各自的职责被分到Core Container(核心容器),Data Access/Integration(数据访问/集成),Web,AOP(Aspect Oriented Programming,面向切面编程),Instrumentation(工具),Messaging(消息),Test模块.如下图:<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/27/Spring/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -848,6 +389,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -867,8 +412,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -952,6 +506,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建型模式"><span class="nav-number">1.</span> <span class="nav-text">创建型模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1、单例模式-Singleton"><span class="nav-number">2.</span> <span class="nav-text">1、单例模式(Singleton)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单例模式实现方法"><span class="nav-number">2.1.</span> <span class="nav-text">单例模式实现方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、建造者模式-Builder"><span class="nav-number">3.</span> <span class="nav-text">2、建造者模式(Builder)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建造者模式实现"><span class="nav-number">3.1.</span> <span class="nav-text">建造者模式实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式-Prototype"><span class="nav-number">4.</span> <span class="nav-text">原型模式(Prototype)</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1055,6 +620,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
